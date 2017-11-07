@@ -1,142 +1,157 @@
 #include <glad/glad.h>
+
 #include <GLFW/glfw3.h>
+//#include <GL\glew.h>
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
 
 
-#include "shader.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <GLFW\glfw3.h>
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <map>
+#include <sstream>
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow *window);
-void useShader(Shader *shader);
+#include "InputHandler.h"
+#include "Render\Renderer.h"
+#include "Util\UuidHelper.h"
+#include "Importers\MeshImporter.h"
+#include "SceneGraph\TransformNode.h"
+#include "SceneGraph\LightNode\LightsEnum.h"
+#include "SceneGraph\CameraNode.h"
+#include "SceneGraph\PlayerNode.h"
+#include "SceneGraph\LightNode\PointLightNode.h"
+#include "SceneGraph\LightNode\DirectionalLightNode.h"
+#include "SceneGraph\LightNode\SpotLightNode.h"
+#include "Texture\SamplerStateEnum.h"
+#include "Texture\MipmapStateEnum.h"
 
-Shader *ourShader;
-Shader *activeShader;
 
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+int main() {
 
-
-
-int main()
-{
-	// glfw: initialize and configure
-	// ------------------------------
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	// glfw window creation
-	// --------------------
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
+	int viewPortResX = 1024;
+	int viewPortResY = 756;
+	Renderer* renderer = Renderer::getInstance();
+	if (renderer->init(viewPortResX, viewPortResY) == -1) {
 		return -1;
 	}
 
-	// build and compile our shader program
-	// ------------------------------------
-	ourShader = new Shader("../Echtzeitgraphik_Demo/Shaders/test.vert", "../Echtzeitgraphik_Demo/Shaders/test.frag"); // you can name your shader files however you like
+	InputHandler* input = new InputHandler();
+
+
+	//Texture* rainbowTexture = new Texture("../kingsrow/Assets/Models/duck_textures/rainbow.jpg");
+
+	std::map<std::string, CameraNode*> cameraList;
+
+	//start of part that should be in a scene loader
+	CameraNode* activeCamera = new CameraNode(generateUuid(), viewPortResX, viewPortResY);
+
+
+	//this way we have a list of cameras and can switch between them as we want just by doing activeCamera = cameraList.find("whichever camera we want")->second;
+	cameraList.insert(std::pair<std::string, CameraNode*>(std::string("player camera"), activeCamera));
+
+
+	std::vector<LightNode*> lights1;
+	//room 1
+	LightNode* firstLight = new PointLightNode(generateUuid(), glm::vec3(2.0, 2, -3), 1.0f, glm::vec3(1, 1, 1), LightType::POINT_LIGHT);
+	LightNode* secondLight = new SpotLightNode(generateUuid(), glm::vec3(2.0, 1.0, -1), 1.0f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(0.5, 0.8), LightType::SPOT_LIGHT);
+	LightNode* secondLight2 = new SpotLightNode(generateUuid(), glm::vec3(2.0, 1.0, -1), 0.0f, glm::vec3(1, 0, 1), glm::vec3(0, -1, 0), glm::vec2(0.5, 0.8), LightType::SPOT_LIGHT);
+	LightNode* secondLight3 = new SpotLightNode(generateUuid(), glm::vec3(2.0, 1.0, -1), 0.0f, glm::vec3(1, 0, 1), glm::vec3(0, -1, 0), glm::vec2(0.5, 0.8), LightType::SPOT_LIGHT);
+
+	lights1.push_back(firstLight);
+	lights1.push_back(secondLight);
+	lights1.push_back(secondLight2);
+	lights1.push_back(secondLight3);
+
+	std::map<int, std::vector<LightNode*>> lightMap;
+	lightMap.insert(std::pair<int, std::vector<LightNode*>>(1, lights1));
+
+	renderer->setLights(lightMap.find(1)->second);
+	std::vector<LightNode*> lights = lights1;
+
+	MeshNode* tableMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TABLE);
+
+	tableMesh->prepareForRendering();
+
+	std::vector<MeshNode*> drawArray;
+	drawArray.push_back(tableMesh);
+
+	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
+	sceneGraph->setParent(nullptr);
+
+
+	SceneNode* transformNodeTable = new TransformNode(generateUuid(), glm::mat4(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		-2, 0, 0, 1));
 	
-	float vertices[] = {
-		// positions         // colors
-		0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
-		0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top 
-	};
+	transformNodeTable->attachChild(tableMesh);
+	sceneGraph->attachChild(transformNodeTable);
 
-	unsigned int VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	
-	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	SceneNode* playerTransform = new TransformNode(generateUuid(), glm::mat4(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		2, 0, -2.5, 1));
 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
+	PlayerNode* player = new PlayerNode(generateUuid());
+	player->setCamera(activeCamera);
+	playerTransform->attachChild(activeCamera);
+	playerTransform->attachChild(player);
+	sceneGraph->attachChild(playerTransform);
+
+	//should probably done recursively in sceneNode		
+
+	//end of part that should be in a scene loader
+
+	double time = glfwGetTime();
+	double oldTime = glfwGetTime();
+	double timeStep = 1.0 / 60.0;
+	double timeOld = 0;
+
+	//gameloop
+	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0) {
+		input->update(renderer->getWindow());
+
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
+		time = glfwGetTime();
+		double deltaTime = time - oldTime;
+		while (deltaTime > timeStep)
+		{
+			deltaTime -= timeStep;
+			sceneGraph->update(timeStep, input);
+		}
+		oldTime = time - deltaTime;
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		
 
 
-	// uncomment this call to draw in wireframe polygons.
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glm::mat4 projectionMatrix = activeCamera->getProjectionMatrix();
+		glm::mat4 viewMatrix = activeCamera->getViewMatrix();
+		glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
+		glm::vec3 playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 
-	// render loop
-	// -----------
-	while (!glfwWindowShouldClose(window))
-	{
-		// input
-		// -----
-		processInput(window);
+		//draw meshes
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition());
+		}
 
-		// render
-		// ------
-		glClearColor(0.4f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		// draw our first triangle
-		useShader(ourShader);
-	
-		float timeValue = glfwGetTime();
-		float greenValue = sin(timeValue) / 2.0f + 0.5f;
-		ourShader->setFloat("colorAdapter", greenValue);
-		ourShader->setFloat("offset", greenValue);
-
-		glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-		// -------------------------------------------------------------------------------
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(renderer->getWindow());
 		glfwPollEvents();
 	}
 
-	// optional: de-allocate all resources once they've outlived their purpose:
-	// ------------------------------------------------------------------------
-	glDeleteVertexArrays(2, &VAO);
-	glDeleteBuffers(2, &VBO);
-
-	// glfw: terminate, clearing all previously allocated GLFW resources.
-	// ------------------------------------------------------------------
 	glfwTerminate();
+
 	return 0;
 }
 
-// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
-// ---------------------------------------------------------------------------------------------------------
-void processInput(GLFWwindow *window)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-}
 
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-// ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	// make sure the viewport matches the new window dimensions; note that width and 
-	// height will be significantly larger than specified on retina displays.
-	glViewport(0, 0, width, height);
-}
-
-void useShader(Shader *shader)
-{
-	activeShader = shader;
-	activeShader->use();
-}
