@@ -1,6 +1,0 @@
-﻿  PlayerNode.cpp
-c:\users\rebeb\documents\tu wien\17ws\echtzeitgraphik\ue\kingsrow\scenegraph\scenegraphenum.h(10): warning C4091: 'static ': ignored on left of 'NodeType' when no variable is declared
-c:\users\rebeb\documents\tu wien\17ws\echtzeitgraphik\ue\kingsrow\scenegraph\playernode.cpp(47): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\rebeb\documents\tu wien\17ws\echtzeitgraphik\ue\kingsrow\scenegraph\playernode.cpp(51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  kingsrow.vcxproj -> C:\Users\rebeb\Documents\TU Wien\17WS\Echtzeitgraphik\UE\Debug\kingsrow.exe
-  kingsrow.vcxproj -> C:\Users\rebeb\Documents\TU Wien\17WS\Echtzeitgraphik\UE\Debug\kingsrow.pdb (Partial PDB)

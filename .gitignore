@@ -19,6 +19,8 @@
 # Fortran module files
 *.mod
 *.smod
+*.ilk
+*.pdb
 
 # Compiled Static libraries
 *.lai
@@ -26,7 +28,10 @@
 *.a
 
 *.tlog
+*.log
 
+
+kingsrow/Debug
 # Executables
 *.exe
 *.out
