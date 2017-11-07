@@ -25,6 +25,7 @@
 *.la
 *.a
 
+*.tlog
 
 # Executables
 *.exe
