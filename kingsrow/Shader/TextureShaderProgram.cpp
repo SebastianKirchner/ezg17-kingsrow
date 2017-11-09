@@ -24,7 +24,7 @@ void TextureShaderProgram::fillUniformLocation(MeshNode* node, std::vector<Light
 {
 	glm::mat4 MVP = node->getModelViewProjectionMatrix();
 	glUniformMatrix4fv(locationMVP, 1, GL_FALSE, &MVP[0][0]);
-	if (node->getLoadInfo() == MeshLoadInfo::TABLE) {
+	if (node->getLoadInfo() == MeshLoadInfo::BRIDGE) {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, node->getTexture()->getTextureID());
 		glUniform1i(locationTexture, 0);

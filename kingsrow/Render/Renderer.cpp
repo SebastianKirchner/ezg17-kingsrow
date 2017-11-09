@@ -35,7 +35,7 @@ int Renderer::init(int viewPortResX, int viewPortResY)
 
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	
-	window = glfwCreateWindow(viewPortResX, viewPortResY, "Taste the Rainbow", NULL, NULL);
+	window = glfwCreateWindow(viewPortResX, viewPortResY, "Kingsrow", NULL, NULL);
 
 	if (window == NULL)
 	{

@@ -57,15 +57,17 @@ int main() {
 
 	std::vector<LightNode*> lights1;
 	//room 1
-	LightNode* firstLight = new PointLightNode(generateUuid(), glm::vec3(2.0, 2, -3), 1.0f, glm::vec3(1, 1, 1), LightType::POINT_LIGHT);
-	LightNode* secondLight = new SpotLightNode(generateUuid(), glm::vec3(2.0, 1.0, -1), 1.0f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(0.5, 0.8), LightType::SPOT_LIGHT);
-	LightNode* secondLight2 = new SpotLightNode(generateUuid(), glm::vec3(2.0, 1.0, -1), 0.0f, glm::vec3(1, 0, 1), glm::vec3(0, -1, 0), glm::vec2(0.5, 0.8), LightType::SPOT_LIGHT);
-	LightNode* secondLight3 = new SpotLightNode(generateUuid(), glm::vec3(2.0, 1.0, -1), 0.0f, glm::vec3(1, 0, 1), glm::vec3(0, -1, 0), glm::vec2(0.5, 0.8), LightType::SPOT_LIGHT);
+	LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(1, 1, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(1, 0.8));
+	LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-1, 1, 1), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(1, 0.8));
+	LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(-1, 1, -1), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(1, 0.8));
+	LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(1, 1, -1), 1.0f, glm::vec3(1, 0, 1), glm::vec3(0, -1, 0), glm::vec2(1, 0.8));
+	LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(4, 5, -4), 1.0f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0));
 
-	lights1.push_back(firstLight);
-	lights1.push_back(secondLight);
-	lights1.push_back(secondLight2);
-	lights1.push_back(secondLight3);
+	lights1.push_back(lightSpot1);
+	lights1.push_back(lightSpot2);
+	lights1.push_back(lightSpot3);
+	lights1.push_back(lightSpot4);
+	lights1.push_back(lightDir1);
 
 	std::map<int, std::vector<LightNode*>> lightMap;
 	lightMap.insert(std::pair<int, std::vector<LightNode*>>(1, lights1));
@@ -73,25 +75,25 @@ int main() {
 	renderer->setLights(lightMap.find(1)->second);
 	std::vector<LightNode*> lights = lights1;
 
-	MeshNode* tableMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TABLE);
+	MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
 
-	tableMesh->prepareForRendering();
+	bridgeMesh->prepareForRendering();
 
 	std::vector<MeshNode*> drawArray;
-	drawArray.push_back(tableMesh);
+	drawArray.push_back(bridgeMesh);
 
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
 	sceneGraph->setParent(nullptr);
 
 
-	SceneNode* transformNodeTable = new TransformNode(generateUuid(), glm::mat4(
-		1, 0, 0, 0,
-		0, 1, 0, 0,
+	SceneNode* transformNodeBridge = new TransformNode(generateUuid(), glm::mat4(
+		1.5, 0, 0, 0,
+		0, 1.2, 0, 0,
 		0, 0, 1, 0,
-		-2, 0, 0, 1));
+		0, 0, 0, 1));
 	
-	transformNodeTable->attachChild(tableMesh);
-	sceneGraph->attachChild(transformNodeTable);
+	transformNodeBridge->attachChild(bridgeMesh);
+	sceneGraph->attachChild(transformNodeBridge);
 
 	SceneNode* playerTransform = new TransformNode(generateUuid(), glm::mat4(
 		1, 0, 0, 0,
