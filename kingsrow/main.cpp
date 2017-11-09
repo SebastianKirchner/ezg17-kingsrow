@@ -76,11 +76,20 @@ int main() {
 	std::vector<LightNode*> lights = lights1;
 
 	MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
+	MeshNode* treeMesh1 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh2 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+
 
 	bridgeMesh->prepareForRendering();
+	treeMesh1->prepareForRendering();
+	treeMesh2->prepareForRendering();
+
 
 	std::vector<MeshNode*> drawArray;
 	drawArray.push_back(bridgeMesh);
+	drawArray.push_back(treeMesh1);
+	drawArray.push_back(treeMesh2);
+
 
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
 	sceneGraph->setParent(nullptr);
@@ -91,9 +100,26 @@ int main() {
 		0, 1.2, 0, 0,
 		0, 0, 1, 0,
 		0, 0, 0, 1));
-	
+	SceneNode* transformNodeTree = new TransformNode(generateUuid(), glm::mat4(
+		0.8, 0, 0, 0,
+		0, 0.8, 0, 0,
+		0, 0, 0.8, 0,
+		0, 0, -20, 1));
+	SceneNode* transformNodeTree2 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		6, 0, -20, 1));
+
+
+
 	transformNodeBridge->attachChild(bridgeMesh);
+	transformNodeTree->attachChild(treeMesh1);
+	transformNodeTree2->attachChild(treeMesh2);
+
 	sceneGraph->attachChild(transformNodeBridge);
+	sceneGraph->attachChild(transformNodeTree);
+	sceneGraph->attachChild(transformNodeTree2);
 
 	SceneNode* playerTransform = new TransformNode(generateUuid(), glm::mat4(
 		1, 0, 0, 0,

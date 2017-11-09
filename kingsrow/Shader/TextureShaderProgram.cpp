@@ -29,4 +29,10 @@ void TextureShaderProgram::fillUniformLocation(MeshNode* node, std::vector<Light
 		glBindTexture(GL_TEXTURE_2D, node->getTexture()->getTextureID());
 		glUniform1i(locationTexture, 0);
 	}
+
+	if (node->getLoadInfo() == MeshLoadInfo::TREE) {
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, node->getTexture()->getTextureID());
+		glUniform1i(locationTexture, 0);
+	}
 }
