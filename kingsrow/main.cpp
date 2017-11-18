@@ -33,8 +33,8 @@
 
 int main() {
 
-	int viewPortResX = 1024;
-	int viewPortResY = 756;
+	int viewPortResX = 1024 * 3;
+	int viewPortResY = 756 * 3;
 	Renderer* renderer = Renderer::getInstance();
 	if (renderer->init(viewPortResX, viewPortResY) == -1) {
 		return -1;
@@ -78,17 +78,24 @@ int main() {
 	MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
 	MeshNode* treeMesh1 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
 	MeshNode* treeMesh2 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeLeaf1 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREELEAF);
+	MeshNode* cubeMap = MeshImporter::getInstance()->getMesh(MeshLoadInfo::CUBEMAP);
+
 
 
 	bridgeMesh->prepareForRendering();
 	treeMesh1->prepareForRendering();
 	treeMesh2->prepareForRendering();
+	treeLeaf1->prepareForRendering();
+	cubeMap->prepareForRendering();
 
 
 	std::vector<MeshNode*> drawArray;
 	drawArray.push_back(bridgeMesh);
 	drawArray.push_back(treeMesh1);
 	drawArray.push_back(treeMesh2);
+	drawArray.push_back(treeLeaf1);
+	drawArray.push_back(cubeMap);
 
 
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
@@ -99,27 +106,41 @@ int main() {
 		1.5, 0, 0, 0,
 		0, 1.2, 0, 0,
 		0, 0, 1, 0,
-		0, 0, 0, 1));
+		0, -1, 0, 1));
 	SceneNode* transformNodeTree = new TransformNode(generateUuid(), glm::mat4(
 		0.8, 0, 0, 0,
 		0, 0.8, 0, 0,
 		0, 0, 0.8, 0,
-		0, 0, -20, 1));
+		0, -2, -4, 1));
 	SceneNode* transformNodeTree2 = new TransformNode(generateUuid(), glm::mat4(
 		0.6, 0, 0, 0,
 		0, 0.6, 0, 0,
 		0, 0, 0.6, 0,
-		6, 0, -20, 1));
+		-6, -2, -4, 1));
+	SceneNode* transformNodeTreeLeaf1 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		-2, -3, -3, 1));
+	SceneNode* transformNodeCubeMap = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		0, 6.7, 0, 1));
 
 
 
 	transformNodeBridge->attachChild(bridgeMesh);
 	transformNodeTree->attachChild(treeMesh1);
 	transformNodeTree2->attachChild(treeMesh2);
+	transformNodeTreeLeaf1->attachChild(treeLeaf1);
+	transformNodeCubeMap->attachChild(cubeMap);
 
 	sceneGraph->attachChild(transformNodeBridge);
 	sceneGraph->attachChild(transformNodeTree);
 	sceneGraph->attachChild(transformNodeTree2);
+	sceneGraph->attachChild(transformNodeTreeLeaf1);
+	sceneGraph->attachChild(transformNodeCubeMap);
 
 	SceneNode* playerTransform = new TransformNode(generateUuid(), glm::mat4(
 		1, 0, 0, 0,

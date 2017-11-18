@@ -38,4 +38,6 @@ public:
 	};
 	static const LoadInfo* BRIDGE;
 	static const LoadInfo* TREE;
+	static const LoadInfo* TREELEAF;
+	static const LoadInfo* CUBEMAP;
 };
