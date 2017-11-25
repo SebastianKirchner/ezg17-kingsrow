@@ -8,7 +8,7 @@ CameraNode::CameraNode(int uuid, int viewPortResX, int viewPortResY) : SceneNode
 	glm::vec3 up = glm::vec3(0, 0.6, 0);
 	direction = glm::vec3(0, 0, 1);
 	viewMatrix = glm::lookAt(position, position + direction, up);
-	projectionMatrix = glm::perspective(75.0f, viewPortResX/(float)viewPortResY, 0.1f, 50.0f);
+	projectionMatrix = glm::perspective(75.0f, viewPortResX/(float)viewPortResY, 0.1f, 100.0f);
 }
 
 CameraNode::~CameraNode()

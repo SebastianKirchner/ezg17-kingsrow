@@ -33,8 +33,8 @@
 
 int main() {
 
-	int viewPortResX = 1024 * 3;
-	int viewPortResY = 756 * 3;
+	int viewPortResX = 1024;
+	int viewPortResY = 756;
 	Renderer* renderer = Renderer::getInstance();
 	if (renderer->init(viewPortResX, viewPortResY) == -1) {
 		return -1;
@@ -78,67 +78,173 @@ int main() {
 	MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
 	MeshNode* treeMesh1 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
 	MeshNode* treeMesh2 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh3 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh4= MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh5 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh6 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh7 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh8 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh9 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh10 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh11= MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh12 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	MeshNode* treeMesh13 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
+	
 	MeshNode* treeLeaf1 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREELEAF);
 	MeshNode* cubeMap = MeshImporter::getInstance()->getMesh(MeshLoadInfo::CUBEMAP);
-
-
 
 	bridgeMesh->prepareForRendering();
 	treeMesh1->prepareForRendering();
 	treeMesh2->prepareForRendering();
+	treeMesh3->prepareForRendering();
+	treeMesh4->prepareForRendering();
+	treeMesh5->prepareForRendering();
+	treeMesh6->prepareForRendering();
+	treeMesh7->prepareForRendering();
+	treeMesh8->prepareForRendering();
+	treeMesh9->prepareForRendering();
+	treeMesh10->prepareForRendering();
+	treeMesh11->prepareForRendering();
+	treeMesh12->prepareForRendering();
+	treeMesh13->prepareForRendering();
 	treeLeaf1->prepareForRendering();
 	cubeMap->prepareForRendering();
-
 
 	std::vector<MeshNode*> drawArray;
 	drawArray.push_back(bridgeMesh);
 	drawArray.push_back(treeMesh1);
 	drawArray.push_back(treeMesh2);
+	drawArray.push_back(treeMesh3);
+	drawArray.push_back(treeMesh4);
+	drawArray.push_back(treeMesh5);
+	drawArray.push_back(treeMesh6);
+	drawArray.push_back(treeMesh7);
+	drawArray.push_back(treeMesh8);
+	drawArray.push_back(treeMesh9);
+	drawArray.push_back(treeMesh10);
+	drawArray.push_back(treeMesh11);
+	drawArray.push_back(treeMesh12);
+	drawArray.push_back(treeMesh13);
 	drawArray.push_back(treeLeaf1);
 	drawArray.push_back(cubeMap);
 
-
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
 	sceneGraph->setParent(nullptr);
-
 
 	SceneNode* transformNodeBridge = new TransformNode(generateUuid(), glm::mat4(
 		1.5, 0, 0, 0,
 		0, 1.2, 0, 0,
 		0, 0, 1, 0,
-		0, -1, 0, 1));
+		20, -1, 0, 1));
 	SceneNode* transformNodeTree = new TransformNode(generateUuid(), glm::mat4(
 		0.8, 0, 0, 0,
-		0, 0.8, 0, 0,
+		0, 0.7, 0, 0,
 		0, 0, 0.8, 0,
-		0, -2, -4, 1));
+		-5, -2, -4, 1));
 	SceneNode* transformNodeTree2 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.65, 0, 0,
+		0, 0, 0.6, 0,
+		-5, -2, 4, 1));
+	SceneNode* transformNodeTree3 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.5, 0, 0,
+		0, 0, 0.5, 0,
+		-3.5, -4, -4, 1));
+	SceneNode* transformNodeTree4 = new TransformNode(generateUuid(), glm::mat4(
 		0.6, 0, 0, 0,
 		0, 0.6, 0, 0,
 		0, 0, 0.6, 0,
-		-6, -2, -4, 1));
+		-3.5, -4, 4, 1));
+	SceneNode* transformNodeTree5 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		-2, -2, -4, 1));
+	SceneNode* transformNodeTree6 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		-2, -2, 4, 1));
+	SceneNode* transformNodeTree7 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		-0.5, -4, -3.1, 1));
+	SceneNode* transformNodeTree8 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		-0.5, -4, 3, 1));
+	SceneNode* transformNodeTree9 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		1, -2, -4, 1));
+	SceneNode* transformNodeTree10 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		1, -2, 4, 1));
+	SceneNode* transformNodeTree11 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		2, -2, -4, 1));
+	SceneNode* transformNodeTree12 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		2, -2, 4, 1));
+	SceneNode* transformNodeTree13 = new TransformNode(generateUuid(), glm::mat4(
+		0.6, 0, 0, 0,
+		0, 0.6, 0, 0,
+		0, 0, 0.6, 0,
+		15, -2, 0, 1));
 	SceneNode* transformNodeTreeLeaf1 = new TransformNode(generateUuid(), glm::mat4(
 		0.6, 0, 0, 0,
 		0, 0.6, 0, 0,
 		0, 0, 0.6, 0,
-		-2, -3, -3, 1));
+		3, -2, -3, 1));
 	SceneNode* transformNodeCubeMap = new TransformNode(generateUuid(), glm::mat4(
-		0.6, 0, 0, 0,
-		0, 0.6, 0, 0,
-		0, 0, 0.6, 0,
-		0, 6.7, 0, 1));
+		2, 0, 0, 0,
+		0, 2, 0, 0,
+		0, 0, 2, 0,
+		0, 0, 0, 1));
 
-
-
+	transformNodeGround->attachChild(groundMesh);
 	transformNodeBridge->attachChild(bridgeMesh);
 	transformNodeTree->attachChild(treeMesh1);
 	transformNodeTree2->attachChild(treeMesh2);
+	transformNodeTree3->attachChild(treeMesh3);
+	transformNodeTree4->attachChild(treeMesh4);
+	transformNodeTree5->attachChild(treeMesh5);
+	transformNodeTree6->attachChild(treeMesh6);
+	transformNodeTree7->attachChild(treeMesh7);
+	transformNodeTree8->attachChild(treeMesh8);
+	transformNodeTree9->attachChild(treeMesh9);
+	transformNodeTree10->attachChild(treeMesh10);
+	transformNodeTree11->attachChild(treeMesh11);
+	transformNodeTree12->attachChild(treeMesh12);
+	transformNodeTree13->attachChild(treeMesh13);
 	transformNodeTreeLeaf1->attachChild(treeLeaf1);
 	transformNodeCubeMap->attachChild(cubeMap);
 
-	sceneGraph->attachChild(transformNodeBridge);
 	sceneGraph->attachChild(transformNodeTree);
 	sceneGraph->attachChild(transformNodeTree2);
+	sceneGraph->attachChild(transformNodeTree3);
+	sceneGraph->attachChild(transformNodeTree4);
+	sceneGraph->attachChild(transformNodeTree5);
+	sceneGraph->attachChild(transformNodeTree6);
+	sceneGraph->attachChild(transformNodeTree7);
+	sceneGraph->attachChild(transformNodeTree8);
+	sceneGraph->attachChild(transformNodeTree9);
+	sceneGraph->attachChild(transformNodeTree10);
+	sceneGraph->attachChild(transformNodeTree11);
+	sceneGraph->attachChild(transformNodeTree12);
+	sceneGraph->attachChild(transformNodeTree13);
+
+	sceneGraph->attachChild(transformNodeBridge);
 	sceneGraph->attachChild(transformNodeTreeLeaf1);
 	sceneGraph->attachChild(transformNodeCubeMap);
 
@@ -146,7 +252,7 @@ int main() {
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
-		2, 0, -2.5, 1));
+		0, 0, 0, 1));
 
 	PlayerNode* player = new PlayerNode(generateUuid());
 	player->setCamera(activeCamera);
