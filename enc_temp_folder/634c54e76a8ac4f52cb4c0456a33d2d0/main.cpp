@@ -222,9 +222,9 @@ int main() {
 		10, -1, 4.5, 1));
 	
 	SceneNode* transformNodeCubeMap = new TransformNode(generateUuid(), glm::mat4(
-		2.5, 0, 0, 0,
-		0, 2.5, 0, 0,
-		0, 0, 2.5, 0,
+		2, 0, 0, 0,
+		0, 2, 0, 0,
+		0, 0, 2, 0,
 		0, 0, 0, 1));
 
 	SceneNode* streetLampNode1 = new TransformNode(generateUuid(), glm::mat4(

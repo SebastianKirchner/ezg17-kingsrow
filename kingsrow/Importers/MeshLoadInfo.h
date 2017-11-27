@@ -40,4 +40,6 @@ public:
 	static const LoadInfo* TREE;
 	static const LoadInfo* TREELEAF;
 	static const LoadInfo* CUBEMAP;
+	static const LoadInfo* STREET_LAMP;
+	static const LoadInfo* GROUND;
 };
