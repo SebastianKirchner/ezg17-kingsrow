@@ -57,16 +57,20 @@ int main() {
 
 	std::vector<LightNode*> lights1;
 	//room 1
-	LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(1, 1, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(1, 0.8));
-	LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-1, 1, 1), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(1, 0.8));
-	LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(-1, 1, -1), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(1, 0.8));
-	LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(1, 1, -1), 1.0f, glm::vec3(1, 0, 1), glm::vec3(0, -1, 0), glm::vec2(1, 0.8));
-	LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(4, 5, -4), 1.0f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0));
+	LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 1));
+	LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 1));
+	LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, -3.7), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	LightNode* lightSpot5 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 0), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	LightNode* lightSpot6 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
 
 	lights1.push_back(lightSpot1);
 	lights1.push_back(lightSpot2);
 	lights1.push_back(lightSpot3);
 	lights1.push_back(lightSpot4);
+	lights1.push_back(lightSpot5);
+	lights1.push_back(lightSpot6);
 	lights1.push_back(lightDir1);
 
 	std::map<int, std::vector<LightNode*>> lightMap;
@@ -222,7 +226,7 @@ int main() {
 		10, -1, 4.5, 1));
 	
 	SceneNode* transformNodeCubeMap = new TransformNode(generateUuid(), glm::mat4(
-		2.5, 0, 0, 0,
+		4, 0, 0, 0,
 		0, 2.5, 0, 0,
 		0, 0, 2.5, 0,
 		0, 0, 0, 1));
@@ -251,12 +255,12 @@ int main() {
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		3.5, -1, -4.5, 1));
+		1, -1, -4.5, 1));
 	SceneNode* streetLampNode6 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		3.5, -1, 4.5, 1));
+		1, -1, 4.5, 1));
 
 	transformNodeBridge->attachChild(bridgeMesh);
 	transformNodeGround->attachChild(groundMesh);
