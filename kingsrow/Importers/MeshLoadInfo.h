@@ -30,7 +30,7 @@ public:
 	static const ShaderLoadInfo* LIGHT_SHAFT_MARKER_SHADER;
 	static const ShaderLoadInfo* LIGHT_SHAFT_MODEL_RENDERER_SHADER;
 	static const ShaderLoadInfo* SHADER_TEST;
-
+	static const ShaderLoadInfo* WATER_SHADER;
 
 	struct LoadInfo {
 		const std::string meshPath;
@@ -47,5 +47,6 @@ public:
 	static const LoadInfo* CUBEMAP;
 	static const LoadInfo* STREET_LAMP;
 	static const LoadInfo* GROUND;
+	static const LoadInfo* PLANE;
 
 };

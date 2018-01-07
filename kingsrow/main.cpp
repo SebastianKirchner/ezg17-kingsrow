@@ -58,23 +58,23 @@ int main() {
 
 	std::vector<LightNode*> lights1;
 	//room 1
-	//LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 1));
-	//LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 1));
-	//LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, -3.7), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	//LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	//LightNode* lightSpot5 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 0), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	//LightNode* lightSpot6 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	//LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
+	LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 1));
+	LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 1));
+	LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, -3.7), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	LightNode* lightSpot5 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 0), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	LightNode* lightSpot6 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
 
 	LightNode* light = new PointLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0, glm::vec3(1, 1, 1));
 	lights1.push_back(light);
-	/*lights1.push_back(lightSpot1);
+	lights1.push_back(lightSpot1);
 	lights1.push_back(lightSpot2);
 	lights1.push_back(lightSpot3);
 	lights1.push_back(lightSpot4);
 	lights1.push_back(lightSpot5);
 	lights1.push_back(lightSpot6);
-	lights1.push_back(lightDir1);*/
+	lights1.push_back(lightDir1);
 
 	std::map<int, std::vector<LightNode*>> lightMap;
 	lightMap.insert(std::pair<int, std::vector<LightNode*>>(1, lights1));
@@ -83,7 +83,7 @@ int main() {
 	std::vector<LightNode*> lights = lights1;
 
 	MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
-	MeshNode* groundMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::GROUND);
+	//MeshNode* groundMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::GROUND);
 
 	MeshNode* treeMesh1 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
 	MeshNode* treeMesh2 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
@@ -104,11 +104,13 @@ int main() {
 	MeshNode* streetLamp4 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp5 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp6 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
+
+	MeshNode* plane = MeshImporter::getInstance()->getMesh(MeshLoadInfo::PLANE);
 	
 	MeshNode* cubeMap = MeshImporter::getInstance()->getMesh(MeshLoadInfo::CUBEMAP);
 
 	bridgeMesh->prepareForRendering();
-	groundMesh->prepareForRendering();
+	//groundMesh->prepareForRendering();
 	treeMesh1->prepareForRendering();
 	treeMesh2->prepareForRendering();
 	treeMesh3->prepareForRendering();
@@ -127,13 +129,14 @@ int main() {
 	streetLamp4->prepareForRendering();
 	streetLamp5->prepareForRendering();
 	streetLamp6->prepareForRendering();
+	plane->prepareForRendering();
 
 
 	cubeMap->prepareForRendering();
 
 	std::vector<MeshNode*> drawArray;
 	drawArray.push_back(bridgeMesh);
-	drawArray.push_back(groundMesh);
+	//drawArray.push_back(groundMesh);
 	drawArray.push_back(treeMesh1);
 	drawArray.push_back(treeMesh2);
 	drawArray.push_back(treeMesh3);
@@ -153,14 +156,15 @@ int main() {
 	drawArray.push_back(streetLamp5);
 	drawArray.push_back(streetLamp6);
 	drawArray.push_back(cubeMap);
+	drawArray.push_back(plane);
 
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
 	sceneGraph->setParent(nullptr);
-	SceneNode* transformNodeGround = new TransformNode(generateUuid(), glm::mat4(
-		0, 0, -0.4, 0,
-		0, 0.4, 0, 0,
-		0.4, 0, 0, 0,
-		9, -0.95, 0, 1));
+	//SceneNode* transformNodeGround = new TransformNode(generateUuid(), glm::mat4(
+	//	0, 0, -0.4, 0,
+	//	0, 0.4, 0, 0,
+	//	0.4, 0, 0, 0,
+	//	9, -0.95, 0, 1));
 
 	SceneNode* transformNodeBridge = new TransformNode(generateUuid(), glm::mat4(
 		1.5, 0, 0, 0,
@@ -265,8 +269,16 @@ int main() {
 		0.3, 0, 0, 0,
 		1, -1, 4.5, 1));
 
+	SceneNode* planeNode = new TransformNode(generateUuid(), glm::mat4(
+		10.0, 0, 0, 0,
+		0, 10.0, 0, 0,
+		0.0, 0, 10.0, 0,
+		1, -1.5, 1, 1));
+	
+
+	planeNode->attachChild(plane);
 	transformNodeBridge->attachChild(bridgeMesh);
-	transformNodeGround->attachChild(groundMesh);
+	//transformNodeGround->attachChild(groundMesh);
 
 	transformNodeTree->attachChild(treeMesh1);
 	transformNodeTree2->attachChild(treeMesh2);
@@ -288,7 +300,7 @@ int main() {
 	streetLampNode5->attachChild(streetLamp5);
 	streetLampNode6->attachChild(streetLamp6);
 
-	sceneGraph->attachChild(transformNodeGround);
+	//sceneGraph->attachChild(transformNodeGround);
 	sceneGraph->attachChild(transformNodeTree);
 	sceneGraph->attachChild(transformNodeTree2);
 	sceneGraph->attachChild(transformNodeTree3);
@@ -301,6 +313,7 @@ int main() {
 	sceneGraph->attachChild(transformNodeTree10);
 	sceneGraph->attachChild(transformNodeTree11);
 	sceneGraph->attachChild(transformNodeTree12);
+	sceneGraph->attachChild(planeNode);
 
 	sceneGraph->attachChild(streetLampNode1);
 	sceneGraph->attachChild(streetLampNode2);
@@ -333,7 +346,7 @@ int main() {
 	double timeStep = 1.0 / 60.0;
 	double timeOld = 0;
 
-	LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
+	//LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
 
 	//gameloop
 	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0) {
@@ -359,12 +372,13 @@ int main() {
 		glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 		glm::vec3 playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 
-		lightShaft->normalDrawingPass();
+		
+		//lightShaft->normalDrawingPass();
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
 			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), false);
 		}
-
+		/*
 		lightShaft->occlusionDrawingPass(lights.at(0));
 		renderer->drawLightMarker(drawArray.at(0), lights.at(0));
 		for (MeshNode* node : drawArray) {
@@ -373,6 +387,7 @@ int main() {
 		}
 		//compose
 		lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
+		*/
 
 		glfwSwapBuffers(renderer->getWindow());
 		glfwPollEvents();

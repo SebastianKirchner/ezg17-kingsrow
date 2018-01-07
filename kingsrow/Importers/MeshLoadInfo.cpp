@@ -5,6 +5,7 @@ const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::SIMPLE_LIGHTING_SHADER = new S
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::SHADER_TEST = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/testVertexShader.glsl"), std::string("../kingsrow/Shader/Fragment/testFragmenShader.glsl"));
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::LIGHT_SHAFT_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/LightShaftVertexShader.glsl"), std::string("../kingsrow/Shader/Fragment/LightShaftFragmentShader.glsl"));
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::LIGHT_SHAFT_MARKER_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/LightShaftMarkerVertexShader.glsl"), std::string("../kingsrow/Shader/Geometry/LightShaftMarkerGeometryShader.glsl"), std::string("../kingsrow/Shader/Fragment/LightShaftMarkerFragmentShader.glsl"));
+const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::WATER_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/WaterVertexShader.glsl"), std::string("../kingsrow/Shader/Fragment/WaterFragmentShader.glsl"));
 //TODO: add light shaft shader
 
 
@@ -15,3 +16,4 @@ const MeshLoadInfo::LoadInfo* MeshLoadInfo::CUBEMAP = new LoadInfo(std::string("
 const MeshLoadInfo::LoadInfo* MeshLoadInfo::STREET_LAMP = new LoadInfo(std::string("../kingsrow/Assets/Models/street-lamp.obj"), std::string("../kingsrow/Assets/Models/textures/street-lamp-texture.png"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
 const MeshLoadInfo::LoadInfo* MeshLoadInfo::GROUND = new LoadInfo(std::string("../kingsrow/Assets/Models/ground.obj"), std::string("../kingsrow/Assets/Models/textures/brownNoise.jpg"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
 const MeshLoadInfo::LoadInfo* MeshLoadInfo::LIGHTSHAFT = new LoadInfo(std::string(""), std::string(), LIGHT_SHAFT_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
+const MeshLoadInfo::LoadInfo* MeshLoadInfo::PLANE = new LoadInfo(std::string("../kingsrow/Assets/Models/plane.obj"), std::string("../kingsrow/Assets/Models/textures/brownNoise.jpg"), WATER_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);

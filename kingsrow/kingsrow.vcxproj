@@ -158,13 +158,17 @@
     <ClCompile Include="Shader\LightingShaderProgram.cpp" />
     <ClCompile Include="Shader\ShaderProgram.cpp" />
     <ClCompile Include="Shader\SimpleLightingShaderProgram.cpp" />
+    <ClCompile Include="Shader\WaterShaderProgram.cpp" />
     <ClCompile Include="Shader\TextureShaderProgram.cpp" />
+    <ClCompile Include="Water.cpp" />
     <ClCompile Include="stb_image_def.cpp" />
     <ClCompile Include="Shader\TestShaderProgram.cpp" />
     <ClCompile Include="Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Shader\WaterShaderProgram.h" />
+    <ClInclude Include="Water.h" />
     <ClInclude Include="Importers\MeshImporter.h" />
     <ClInclude Include="Importers\MeshLoadInfo.h" />
     <ClInclude Include="Importers\ShaderImporter.h" />
@@ -218,6 +222,7 @@
     <None Include="Shader\Fragment\ShadowMappingFragmentShader.fragmentshader" />
     <None Include="Shader\Fragment\SimpleFragmentShader.fragmentshader" />
     <None Include="Shader\Fragment\TextFragmentShader.fragmentshader" />
+    <None Include="Shader\Fragment\WaterFragmentShader.glsl" />
     <None Include="Shader\Geometry\DepthGeometryShader.geometryshader" />
     <None Include="Shader\Vertex\BloomVertexShader.glsl" />
     <None Include="Shader\Vertex\BlurVertexShader.glsl" />
@@ -230,6 +235,7 @@
     <None Include="Shader\Vertex\ShadowMappingVertexShader.vertexshader" />
     <None Include="Shader\Vertex\SimpleVertexShader.vertexshader" />
     <None Include="Shader\Vertex\TextVertexShader.vertexshader" />
+    <None Include="Shader\Vertex\WaterVertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
