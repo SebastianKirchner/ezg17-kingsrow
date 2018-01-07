@@ -5,10 +5,12 @@
 //forward declaration
 #include "../SceneGraph/MeshNode.h"
 #include "../SceneGraph/LightNode/LightNode.h"
+#include "../LightShaft.h"
 
 class MeshNode;
 class Text;
-class Framebuffer;
+class LightShaft;
+class LightNode;
 
 
 class ShaderProgram
@@ -23,7 +25,8 @@ public:
 	~ShaderProgram();
 
 	virtual void loadUniformLocations() = 0;
-	virtual void fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights) = 0;
+	virtual void fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion = false) = 0;
+	virtual void fillUniformLocation(LightShaft* lightShaft, LightNode* light) = 0;
 
 protected:
 	GLuint programId;

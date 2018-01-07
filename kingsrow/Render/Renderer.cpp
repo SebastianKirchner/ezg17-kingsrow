@@ -121,12 +121,12 @@ void Renderer::bindVertexArray(GLuint vertexArrayId)
 	glBindVertexArray(vertexArrayId);
 }
 
-void Renderer::draw(MeshNode* node)
+void Renderer::draw(MeshNode* node, bool drawOcclusion)
 {
 	//getShadows (dirLight)
 	std::vector<LightNode*> lights = this->getLights(node);
 
-	this->useShader(node, lights);
+	this->useShader(node, lights, drawOcclusion);
 
 	bindVertexArray(node->getVao());
 
@@ -136,17 +136,33 @@ void Renderer::draw(MeshNode* node)
 	glUseProgram(0);
 }
 
+void Renderer::drawLightMarker(MeshNode* node, LightNode * lightShaftLight)
+{
+	this->useShader(node, lightShaftLight);
+	bindVertexArray(lightShaftLight->getVAO());
+	glDrawArrays(GL_POINTS, 0, 1);
+	glBindVertexArray(0);
+	glUseProgram(0);
+}
+
 
 void Renderer::linkShader(ShaderProgram* shader)
 {
 	glUseProgram(shader->getShaderId());
 }
 
-void Renderer::useShader(MeshNode* node, std::vector<LightNode*> lights)
+void Renderer::useShader(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion)
 {
 	ShaderProgram* shaderProgram = node->getShaderProgram();
 	glUseProgram(shaderProgram->getShaderId());
 	
+	shaderProgram->fillUniformLocation(node, lights, drawOcclusion);
+}
+
+void Renderer::useShader(MeshNode* node, LightNode * light)
+{
+	ShaderProgram* shaderProgram = light->getShaderProgram();
+	glUseProgram(shaderProgram->getShaderId());
 	shaderProgram->fillUniformLocation(node, lights);
 }
 

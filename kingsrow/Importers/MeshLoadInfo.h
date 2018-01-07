@@ -26,6 +26,10 @@ public:
 	static const ShaderLoadInfo* LIGHTING_SHADER;
 	static const ShaderLoadInfo* TEXTURE_SHADER;
 	static const ShaderLoadInfo* SIMPLE_LIGHTING_SHADER;
+	static const ShaderLoadInfo* LIGHT_SHAFT_SHADER;
+	static const ShaderLoadInfo* LIGHT_SHAFT_MARKER_SHADER;
+	static const ShaderLoadInfo* LIGHT_SHAFT_MODEL_RENDERER_SHADER;
+	static const ShaderLoadInfo* SHADER_TEST;
 
 
 	struct LoadInfo {
@@ -36,10 +40,12 @@ public:
 		const CollisionShapeType collisionShapeType;
 		LoadInfo(const std::string& mPath, const std::string& tPath, const ShaderLoadInfo* sInfo, const CollisionType cType, const CollisionShapeType cSType) : meshPath(mPath), texturePath(tPath), shaderInfo(sInfo), collisionType(cType), collisionShapeType(cSType){}
 	};
+	static const LoadInfo* LIGHTSHAFT;
 	static const LoadInfo* BRIDGE;
 	static const LoadInfo* TREE;
 	static const LoadInfo* TREELEAF;
 	static const LoadInfo* CUBEMAP;
 	static const LoadInfo* STREET_LAMP;
 	static const LoadInfo* GROUND;
+
 };

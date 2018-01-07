@@ -9,7 +9,8 @@ public:
 	~LightingShaderProgram();
 
 	virtual void loadUniformLocations();
-	virtual void fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights);
+	virtual void fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion = false);
+	virtual void fillUniformLocation(LightShaft* lightShaft, LightNode* light);
 
 	GLuint getLocationMVP();
 	GLuint getLocationTexture();

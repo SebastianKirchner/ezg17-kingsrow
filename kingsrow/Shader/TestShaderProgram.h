@@ -3,18 +3,23 @@
 #include "..\Shader\ShaderProgram.h"
 #include "..\Texture\Texture.h"
 
-class TextureShaderProgram : public ShaderProgram
+class TestShaderProgram : public ShaderProgram
 {
 public:
-	TextureShaderProgram(GLuint shaderProgramID);
-	~TextureShaderProgram();
+	TestShaderProgram(GLuint shaderProgramID);
+	~TestShaderProgram();
 
 	virtual void loadUniformLocations();
 	virtual void fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion = false);
 	virtual void fillUniformLocation(LightShaft* lightShaft, LightNode* light);
 
 private:
-	GLuint locationMVP;
-	GLuint locationTexture;
+	GLuint locationLightScreenPos;
+	GLuint locationTex;
+	GLuint locationSamples;
+	GLuint locationExposure;
+	GLuint locationDecay;
+	GLuint locationDensity;
+	GLuint locationWeight;
 };
 

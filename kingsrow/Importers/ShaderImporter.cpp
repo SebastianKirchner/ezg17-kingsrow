@@ -1,3 +1,4 @@
+
 #include "ShaderImporter.h"
 
 #include <fstream>
@@ -7,6 +8,9 @@
 #include "..\Shader\LightingShaderProgram.h"
 #include "..\Shader\TextureShaderProgram.h"
 #include "..\Shader\SimpleLightingShaderProgram.h"
+#include "..\Shader\TestShaderProgram.h"
+#include "..\Shader\LightShaftShaderProgram.h"
+#include "..\Shader\LightShaftMarkerShaderProgram.h"
 
 ShaderImporter::ShaderImporter()
 {
@@ -39,9 +43,9 @@ GLuint ShaderImporter::loadShader(std::string shaderPath)
 			shaderCode += "\n" + line;
 		codeStream.close();
 	}
+	char const * sourcePointer = shaderCode.c_str();
 
 	std::cerr << "compiling shader: " << shaderPath << std::endl;
-	char const * sourcePointer = shaderCode.c_str();
 	glShaderSource(shaderID, 1, &sourcePointer, NULL);
 	glCompileShader(shaderID);
 
@@ -88,7 +92,9 @@ ShaderProgram* ShaderImporter::loadShaderProgram(const MeshLoadInfo::ShaderLoadI
 		//The maxLength includes the NULL character
 		std::vector<GLchar> shaderErrorMessage(maxLength);
 		glGetProgramInfoLog(shaderProgramID, maxLength, &maxLength, &shaderErrorMessage[0]);
+		std::cerr << "dslkfkjasddf" << std::endl;
 		fprintf(stdout, "%s\n", &shaderErrorMessage[0]);
+
 		//std::cerr << infoLog << std::endl;
 	}	
 
@@ -100,6 +106,18 @@ ShaderProgram* ShaderImporter::loadShaderProgram(const MeshLoadInfo::ShaderLoadI
 	else if (shader == MeshLoadInfo::TEXTURE_SHADER)
 	{
 		result = new TextureShaderProgram(shaderProgramID);
+	}
+	else if (shader == MeshLoadInfo::LIGHT_SHAFT_SHADER)
+	{
+		result = new LightShaftShaderProgram(shaderProgramID);
+	}
+	else if (shader == MeshLoadInfo::LIGHT_SHAFT_MARKER_SHADER)
+	{
+		result = new LightShaftMarkerShaderProgram(shaderProgramID);
+	}
+	else if (shader == MeshLoadInfo::SHADER_TEST)
+	{
+		result = new TestShaderProgram(shaderProgramID);
 	}
 	else if (shader == MeshLoadInfo::SIMPLE_LIGHTING_SHADER)
 	{

@@ -2,11 +2,16 @@
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::LIGHTING_SHADER = new ShaderLoadInfo(std::string("vertexShaderPath"), std::string("fragmentShaderPath"));
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::TEXTURE_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/texture_vertex_shader.glsl"), std::string("../kingsrow/Shader/Fragment/texture_fragment_shader.glsl"));
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::SIMPLE_LIGHTING_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/SimpleVertexShader.vertexshader"), std::string("../kingsrow/Shader/Fragment/SimpleFragmentShader.fragmentshader"));
+const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::SHADER_TEST = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/testVertexShader.glsl"), std::string("../kingsrow/Shader/Fragment/testFragmenShader.glsl"));
+const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::LIGHT_SHAFT_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/LightShaftVertexShader.glsl"), std::string("../kingsrow/Shader/Fragment/LightShaftFragmentShader.glsl"));
+const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::LIGHT_SHAFT_MARKER_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/LightShaftMarkerVertexShader.glsl"), std::string("../kingsrow/Shader/Geometry/LightShaftMarkerGeometryShader.glsl"), std::string("../kingsrow/Shader/Fragment/LightShaftMarkerFragmentShader.glsl"));
+//TODO: add light shaft shader
+
 
 const MeshLoadInfo::LoadInfo* MeshLoadInfo::BRIDGE = new LoadInfo(std::string("../kingsrow/Assets/Models/bridge_old.obj"), std::string("../kingsrow/Assets/Models/textures/wood_bridge.jpg"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
-
 const MeshLoadInfo::LoadInfo* MeshLoadInfo::TREE = new LoadInfo(std::string("../kingsrow/Assets/Models/treeBranches.obj"), std::string("../kingsrow/Assets/Models/textures/BarkDecidious0194_7_S.jpg"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
-const MeshLoadInfo::LoadInfo* MeshLoadInfo::TREELEAF = new LoadInfo(std::string("../kingsrow/Assets/Models/treeLeafs.obj"), std::string("../kingsrow/Assets/Models/textures/greenNoise.jpg"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX); 
+const MeshLoadInfo::LoadInfo* MeshLoadInfo::TREELEAF = new LoadInfo(std::string("../kingsrow/Assets/Models/treeLeafs.obj"), std::string("../kingsrow/Assets/Models/textures/greenNoise.jpg"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
 const MeshLoadInfo::LoadInfo* MeshLoadInfo::CUBEMAP = new LoadInfo(std::string("../kingsrow/Assets/Models/cubeMap.obj"), std::string("../kingsrow/Assets/Models/textures/cubeMap.jpg"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
 const MeshLoadInfo::LoadInfo* MeshLoadInfo::STREET_LAMP = new LoadInfo(std::string("../kingsrow/Assets/Models/street-lamp.obj"), std::string("../kingsrow/Assets/Models/textures/street-lamp-texture.png"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
 const MeshLoadInfo::LoadInfo* MeshLoadInfo::GROUND = new LoadInfo(std::string("../kingsrow/Assets/Models/ground.obj"), std::string("../kingsrow/Assets/Models/textures/brownNoise.jpg"), SIMPLE_LIGHTING_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);
+const MeshLoadInfo::LoadInfo* MeshLoadInfo::LIGHTSHAFT = new LoadInfo(std::string(""), std::string(), LIGHT_SHAFT_SHADER, MeshLoadInfo::CollisionType::DYNAMIC, MeshLoadInfo::CollisionShapeType::CONVEX);

@@ -20,9 +20,10 @@ void SimpleLightingShaderProgram::loadUniformLocations()
 	locationTexture = glGetUniformLocation(programId, "myTextureSampler");
 	locationV = glGetUniformLocation(programId, "V");
 	locationM = glGetUniformLocation(programId, "M");
+	locationOcclusion = glGetUniformLocation(programId, "occlusion");
 }
 
-void SimpleLightingShaderProgram::fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights)
+void SimpleLightingShaderProgram::fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion)
 {
 	this->useLights(lights);
 	glm::mat4 MVP = node->getModelViewProjectionMatrix();
@@ -32,7 +33,12 @@ void SimpleLightingShaderProgram::fillUniformLocation(MeshNode* node, std::vecto
 	glUniformMatrix4fv(locationM, 1, GL_FALSE, &M[0][0]);
 	glm::mat4 V = node->getViewMatrix();
 	glUniformMatrix4fv(locationV, 1, GL_FALSE, &V[0][0]);
+	glUniform1i(locationOcclusion, drawOcclusion);
 
+}
+
+void SimpleLightingShaderProgram::fillUniformLocation(LightShaft * lightShaft, LightNode * light)
+{
 }
 
 void SimpleLightingShaderProgram::bindTextures(MeshNode* node)

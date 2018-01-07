@@ -38,7 +38,8 @@ public:
 
 	void linkShader(ShaderProgram* shader);
 	
-	void draw(MeshNode* node);
+	void draw(MeshNode* node, bool drawOcclusion = false);
+	void drawLightMarker(MeshNode* node, LightNode* lightShaftLight);
 
 	GLFWwindow* getWindow();
 	void setLights(std::vector<LightNode*> lights);
@@ -53,7 +54,8 @@ private:
 	std::vector<LightNode*> lights;
 	std::vector<LightNode*> getLights(MeshNode* node);
 
-	void useShader(MeshNode* node, std::vector<LightNode*> lights);
+	void useShader(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion = false);
+	void useShader(MeshNode* node, LightNode* light);
 
 	int viewPortResX;
 	int viewPortResY;

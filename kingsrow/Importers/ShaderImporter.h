@@ -8,6 +8,8 @@
 #include "../shader/ShaderProgram.h"
 #include "MeshLoadInfo.h"
 
+class ShaderProgram;
+
 class ShaderImporter
 {
 public:

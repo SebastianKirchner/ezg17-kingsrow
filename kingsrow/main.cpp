@@ -29,10 +29,11 @@
 #include "SceneGraph\LightNode\SpotLightNode.h"
 #include "Texture\SamplerStateEnum.h"
 #include "Texture\MipmapStateEnum.h"
-
+#include "LightShaft.h"
 
 int main() {
 
+	//Update the values also in LightNode, in case these values change
 	int viewPortResX = 1024;
 	int viewPortResY = 756;
 	Renderer* renderer = Renderer::getInstance();
@@ -57,21 +58,23 @@ int main() {
 
 	std::vector<LightNode*> lights1;
 	//room 1
-	LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 1));
-	LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 1));
-	LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, -3.7), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	LightNode* lightSpot5 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 0), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	LightNode* lightSpot6 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
+	//LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 1));
+	//LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 1));
+	//LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, -3.7), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	//LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	//LightNode* lightSpot5 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 0), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	//LightNode* lightSpot6 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
+	//LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
 
-	lights1.push_back(lightSpot1);
+	LightNode* light = new PointLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0, glm::vec3(1, 1, 1));
+	lights1.push_back(light);
+	/*lights1.push_back(lightSpot1);
 	lights1.push_back(lightSpot2);
 	lights1.push_back(lightSpot3);
 	lights1.push_back(lightSpot4);
 	lights1.push_back(lightSpot5);
 	lights1.push_back(lightSpot6);
-	lights1.push_back(lightDir1);
+	lights1.push_back(lightDir1);*/
 
 	std::map<int, std::vector<LightNode*>> lightMap;
 	lightMap.insert(std::pair<int, std::vector<LightNode*>>(1, lights1));
@@ -330,6 +333,8 @@ int main() {
 	double timeStep = 1.0 / 60.0;
 	double timeOld = 0;
 
+	LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
+
 	//gameloop
 	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0) {
 		input->update(renderer->getWindow());
@@ -354,11 +359,20 @@ int main() {
 		glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
 		glm::vec3 playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 
-		//draw meshes
+		lightShaft->normalDrawingPass();
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
-			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition());
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), false);
 		}
+
+		lightShaft->occlusionDrawingPass(lights.at(0));
+		renderer->drawLightMarker(drawArray.at(0), lights.at(0));
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			renderer->draw(node, true);
+		}
+		//compose
+		lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
 
 		glfwSwapBuffers(renderer->getWindow());
 		glfwPollEvents();

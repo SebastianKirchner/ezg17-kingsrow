@@ -27,7 +27,7 @@ public:
 
 	/*virtual void update(double timeStep, InputHandler* input);*/
 	//this takes both the viewprojection matrix as well as the individual matrices so that they don't have to be multiplied per object per frame.
-	void draw(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::mat4 viewProjectionMatrix, glm::vec3 playerPosition);
+	void draw(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::mat4 viewProjectionMatrix, glm::vec3 playerPosition, bool drawOcclusion = false);
 
 	GLuint getVao();
 	int getDrawSize();

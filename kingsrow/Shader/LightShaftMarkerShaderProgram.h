@@ -1,20 +1,21 @@
 #pragma once
 
 #include "..\Shader\ShaderProgram.h"
-#include "..\Texture\Texture.h"
 
-class TextureShaderProgram : public ShaderProgram
+
+class LightShaftMarkerShaderProgram : public ShaderProgram
 {
 public:
-	TextureShaderProgram(GLuint shaderProgramID);
-	~TextureShaderProgram();
+	LightShaftMarkerShaderProgram(GLuint shaderProgramID);
+	~LightShaftMarkerShaderProgram();
 
 	virtual void loadUniformLocations();
 	virtual void fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion = false);
 	virtual void fillUniformLocation(LightShaft* lightShaft, LightNode* light);
 
 private:
-	GLuint locationMVP;
-	GLuint locationTexture;
+	GLuint locationViewProkectionMatrix;
+	GLuint locationScale;
+	GLuint locationColor;
 };
 

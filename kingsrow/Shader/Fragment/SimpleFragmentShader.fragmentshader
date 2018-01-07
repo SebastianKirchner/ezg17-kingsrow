@@ -24,8 +24,14 @@ uniform sampler2D myTextureSampler;
 uniform mat4 V;
 uniform mat4 M;
 uniform LightSource lights[NR_LIGHTS];
+uniform bool occlusion;
 
 void main(){
+
+	if (occlusion == true) {
+		lighting = vec4(0,0,0,1);
+	}
+	else {
 	vec3 color = vec3(0.0);
 	// Material properties
 	vec3 MaterialDiffuseColor = texture( myTextureSampler, UV ).rgb;
@@ -125,4 +131,5 @@ void main(){
 		}
 		}
 		lighting = vec4(color, 1.0);
+		}
 }

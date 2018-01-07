@@ -87,10 +87,27 @@
     <ClCompile Include="SceneGraph\LightNode\SpotLightNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Shader\LightShaftShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightShaft.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\LightShaftMarkerShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\TestShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\test.vert" />
-    <Text Include="Shaders\test.frag" />
+    <Text Include="Shader\Vertex\LightShaftVertexShader.glsl" />
+    <Text Include="Shader\Fragment\LightShaftFragmentShader.glsl" />
+    <Text Include="Shader\Fragment\LightShaftMarkerFragmentShader.glsl" />
+    <Text Include="Shader\Geometry\LightShaftMarkerGeometryShader.glsl" />
+    <Text Include="Shader\Vertex\LightShaftMarkerVertexShader.glsl" />
+    <Text Include="Shader\Fragment\testFragmenShader.glsl" />
+    <Text Include="Shader\Vertex\testVertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
@@ -175,6 +192,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneGraph\LightNode\SpotLightNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\LightShaftShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightShaft.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\LightShaftMarkerShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\TestShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
