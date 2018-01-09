@@ -9,7 +9,7 @@ GLfloat quad[12] =
 	1.0f, 1.0f, 1.0f
 };
 
-Water::Water(const MeshLoadInfo::LoadInfo* meshLoadInfo, int width, int height)
+Water::Water(int width, int height)
 {
 	this->width = width;
 	this->height = height;

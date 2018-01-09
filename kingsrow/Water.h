@@ -8,7 +8,7 @@
 class Water
 {
 public:
-	Water(const MeshLoadInfo::LoadInfo* meshLoadInfo, int width, int height);
+	Water(int width, int height);
 	~Water();
 
 	void reflectionPass();

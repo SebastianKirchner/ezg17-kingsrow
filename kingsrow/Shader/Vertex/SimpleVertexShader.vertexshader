@@ -13,10 +13,12 @@ out vec3 vertexPosition_cameraspace;
 // Values that stay constant for the whole mesh.
 uniform mat4 MVP;
 uniform mat4 M;
+uniform vec4 clipPlane;
 
 void main()
 {
     gl_Position = MVP * vec4(vertexPosition_modelspace, 1.0f);
+	gl_ClipDistance[0] = dot(vec4(vertexPosition_modelspace.xyz, 1.0), clipPlane);
     vertexPosition_cameraspace = vec3(M * vec4(vertexPosition_modelspace, 1.0f));
     Normal_cameraspace = mat3(transpose(inverse(M))) * vertexNormal_modelspace;  
     UV = vertexUV;

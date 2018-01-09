@@ -30,6 +30,7 @@
 #include "Texture\SamplerStateEnum.h"
 #include "Texture\MipmapStateEnum.h"
 #include "LightShaft.h"
+#include "Water.h"
 
 int main() {
 
@@ -347,12 +348,14 @@ int main() {
 	double timeOld = 0;
 
 	//LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
+	Water* water = new Water(viewPortResX, viewPortResY);
 
 	//gameloop
 	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0) {
 		input->update(renderer->getWindow());
 
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+		glEnable(GL_CLIP_DISTANCE0);
 
 		time = glfwGetTime();
 		double deltaTime = time - oldTime;
@@ -373,10 +376,25 @@ int main() {
 		glm::vec3 playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 
 		
-		//lightShaft->normalDrawingPass();
+		water->reflectionPass();
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
-			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), false);
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, 1,0,-1),  false);
+		}
+
+		water->refractionPass();
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, -1), false);
+		}
+
+		//lightShaft->normalDrawingPass();
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glViewport(0, 0, viewPortResX, viewPortResY);
+		glDisable(GL_CLIP_DISTANCE0);
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 1), false);
 		}
 		/*
 		lightShaft->occlusionDrawingPass(lights.at(0));

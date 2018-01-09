@@ -90,12 +90,13 @@ void MeshNode::prepareForRendering()
 }
 
 
-void MeshNode::draw(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::mat4 viewProjectionMatrix, glm::vec3 playerPosition, bool drawOcclusion)
+void MeshNode::draw(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::mat4 viewProjectionMatrix, glm::vec3 playerPosition, glm::vec4 clipPlane, bool drawOcclusion)
 {
 	this->viewMatrix = viewMatrix;
 	this->projectionMatrix = projectionMatrix;
 	this->viewProjectionMatrix = viewProjectionMatrix;
 	this->playerPosition = playerPosition;
+	this->clipPlane = clipPlane;
 	Renderer::getInstance()->draw(this);
 }
 
@@ -177,4 +178,9 @@ void MeshNode::setActiveTexture(Texture* texture)
 	else {
 		activeTexture = texture;
 	}
+}
+
+glm::vec4 MeshNode::getClipPlane()
+{
+	return clipPlane;
 }

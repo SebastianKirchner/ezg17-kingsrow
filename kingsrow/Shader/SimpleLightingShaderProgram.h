@@ -20,6 +20,7 @@ private:
 	GLuint locationTexture;
 	GLuint locationLight;
 	GLuint locationOcclusion;
+	GLuint locationClipPlane;
 	
 	void useLights(std::vector<LightNode*> lights);
 	void bindTextures(MeshNode* node);

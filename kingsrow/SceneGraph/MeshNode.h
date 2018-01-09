@@ -27,7 +27,7 @@ public:
 
 	/*virtual void update(double timeStep, InputHandler* input);*/
 	//this takes both the viewprojection matrix as well as the individual matrices so that they don't have to be multiplied per object per frame.
-	void draw(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::mat4 viewProjectionMatrix, glm::vec3 playerPosition, bool drawOcclusion = false);
+	void draw(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::mat4 viewProjectionMatrix, glm::vec3 playerPosition, glm::vec4 clipPlane, bool drawOcclusion = false);
 
 	GLuint getVao();
 	int getDrawSize();
@@ -41,6 +41,7 @@ public:
 	glm::mat4 getModelMatrix();
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
+	glm::vec4 getClipPlane();
 
 	Texture* getTexture();
 	void setActiveTexture(Texture* texture); //if nullptr->myTeyture
@@ -77,6 +78,7 @@ private:
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
 	glm::mat4 viewProjectionMatrix;
+	glm::vec4 clipPlane;
 	
 	GLuint myShaderID;
 	Texture* activeTexture;
