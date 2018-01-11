@@ -102,3 +102,18 @@ Water::~Water()
 	glDeleteTextures(1, &refractionTexture);
 	glDeleteTextures(1, &refractionDepthTexture);
 }
+
+ShaderProgram* Water::getShaderProgram()
+{
+	return shaderProgram;
+}
+
+GLuint Water::getReflectionTexture()
+{
+	return reflectionTexture;
+}
+
+GLuint Water::getRefractionTexture()
+{
+	return refractionTexture;
+}

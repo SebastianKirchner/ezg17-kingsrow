@@ -12,6 +12,7 @@
 #include "../SceneGraph/MeshNode.h"
 #include "../SceneGraph/CameraNode.h"
 #include "../SceneGraph/LightNode/LightNode.h"
+#include "../Water.h"
 
 
 class Renderer
@@ -40,6 +41,7 @@ public:
 	
 	void draw(MeshNode* node, bool drawOcclusion = false);
 	void drawLightMarker(MeshNode* node, LightNode* lightShaftLight);
+	void drawWater(MeshNode* node, glm::mat4 modelViewProjectionMatrix, Water* water);
 
 	GLFWwindow* getWindow();
 	void setLights(std::vector<LightNode*> lights);

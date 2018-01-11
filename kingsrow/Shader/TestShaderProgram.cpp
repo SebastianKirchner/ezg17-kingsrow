@@ -41,3 +41,7 @@ void TestShaderProgram::fillUniformLocation(LightShaft * lightShaft, LightNode *
 	glUniform1f(locationDensity, lightShaft->getDensity());
 	glUniform1f(locationWeight, lightShaft->getWeight());
 }
+
+void TestShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+{
+}

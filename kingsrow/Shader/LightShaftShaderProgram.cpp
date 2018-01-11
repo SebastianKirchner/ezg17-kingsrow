@@ -38,3 +38,7 @@ void LightShaftShaderProgram::fillUniformLocation(LightShaft * lightShaft, Light
 	glUniform1f(locationDensity, lightShaft->getDensity());
 	glUniform1f(locationWeight, lightShaft->getWeight());
 }
+
+void LightShaftShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+{
+}

@@ -17,9 +17,11 @@ WaterShaderProgram::~WaterShaderProgram()
 void WaterShaderProgram::loadUniformLocations()
 {
 	locationMVP = glGetUniformLocation(programId, "MVP");
-	//reflectionTexture = glGetUniformLocation(programId, "reflectionTexture");
-	//refractionTexture = glGetUniformLocation(programId, "refractionTexture");
+	reflectionTexture = glGetUniformLocation(programId, "reflectionTexture");
+	refractionTexture = glGetUniformLocation(programId, "refractionTexture");
 	// bind textures
+	glUniform1i(reflectionTexture, 0);
+	glUniform1i(refractionTexture, 1);
 }
 
 void WaterShaderProgram::fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion)
@@ -30,4 +32,14 @@ void WaterShaderProgram::fillUniformLocation(MeshNode* node, std::vector<LightNo
 
 void WaterShaderProgram::fillUniformLocation(LightShaft * lightShaft, LightNode * light)
 {
+}
+
+void WaterShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, reflectionTexture);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, refractionTexture);
+	glm::mat4 MVP = modelViewProjectionMatrix;
+	glUniformMatrix4fv(locationMVP, 1, GL_FALSE, &MVP[0][0]);
 }

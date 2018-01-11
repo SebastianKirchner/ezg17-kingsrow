@@ -145,6 +145,17 @@ void Renderer::drawLightMarker(MeshNode* node, LightNode * lightShaftLight)
 	glUseProgram(0);
 }
 
+void Renderer::drawWater(MeshNode* node, glm::mat4 modelViewProjectionMatrix, Water* water)
+{
+	ShaderProgram* shaderProgram = node->getShaderProgram();
+	glUseProgram(shaderProgram->getShaderId());
+	shaderProgram->fillUniformLocation(node, modelViewProjectionMatrix, water->getReflectionTexture(), water->getRefractionTexture());
+	bindVertexArray(node->getVao());
+	glDrawElements(GL_TRIANGLES, node->getDrawSize(), GL_UNSIGNED_INT, (void*)0);
+	bindVertexArray(0);
+	glUseProgram(0);
+
+}
 
 void Renderer::linkShader(ShaderProgram* shader)
 {

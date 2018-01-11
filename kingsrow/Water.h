@@ -14,6 +14,10 @@ public:
 	void reflectionPass();
 	void refractionPass();
 
+	ShaderProgram* getShaderProgram();
+
+	GLuint getReflectionTexture();
+	GLuint getRefractionTexture();
 private:
 
 	int width;

@@ -106,3 +106,7 @@ void SimpleLightingShaderProgram::useLights(std::vector<LightNode*> lights)
 		}
 	}
 }
+
+void SimpleLightingShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+{
+}
