@@ -8,7 +8,7 @@
 class Water
 {
 public:
-	Water(int width, int height);
+	Water(ShaderProgram* shaderProgram, int width, int height);
 	~Water();
 
 	void reflectionPass();

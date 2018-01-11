@@ -357,14 +357,14 @@ int main() {
 
 
 	//LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
-	Water* water = new Water(viewPortResX, viewPortResY);
+	Water* water = new Water(plane->getShaderProgram(),viewPortResX, viewPortResY);
 
 	//gameloop
 	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0) {
 		input->update(renderer->getWindow());
 
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-		glEnable(GL_CLIP_DISTANCE0);
+		//glEnable(GL_CLIP_DISTANCE0);
 
 		time = glfwGetTime();
 		double deltaTime = time - oldTime;
@@ -397,12 +397,10 @@ int main() {
 			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 0), false);
 		}
 
-		
-
 		//lightShaft->normalDrawingPass();
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, viewPortResX, viewPortResY);
-		glDisable(GL_CLIP_DISTANCE0);
+		glDisable(GL_CLIP_DISTANCE0);		
 
 		renderer->drawWater(plane, viewProjectionMatrix * glm::mat4(plane->propagateMatrix()), water);
 

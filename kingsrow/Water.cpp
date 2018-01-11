@@ -9,13 +9,19 @@ GLfloat quad[12] =
 	1.0f, 1.0f, 1.0f
 };
 
-Water::Water(int width, int height)
+Water::Water(ShaderProgram* shaderProgram, int width, int height)
 {
+	this->shaderProgram = shaderProgram;
 	this->width = width;
 	this->height = height;
 
 	this->initReflection();
 	this->initRefraction();
+	glUseProgram(shaderProgram->getShaderId());
+	// bind textures
+	glUniform1i(reflectionTexture, 0);
+	glUniform1i(refractionTexture, 1);
+	glUseProgram(0);
 }
 
 void Water::initReflection() 
@@ -28,7 +34,7 @@ void Water::initReflection()
 	// create reflection texture
 	glGenTextures(1, &reflectionTexture);
 	glBindTexture(GL_TEXTURE_2D, reflectionTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, REFL_WIDTH, REFL_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, REFL_WIDTH, REFL_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, reflectionTexture, 0);

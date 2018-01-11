@@ -18,6 +18,6 @@ void main()
 	vec4 refractCol = texture(refractionTexture, refractTexCoords);
 
     // out_color = mix(reflectCol, refractCol, 0.5);
-	out_color = refractCol;
+	out_color = reflectCol;
 } 
 
