@@ -9,7 +9,7 @@ LightNode::LightNode(int uuid, glm::vec3 position, GLfloat intensity, glm::vec3 
 	this->color = color;
 	this->type = type;
 
-	scale = glm::vec2(1.0, (float)1024.0/(float)756.0);
+	scale = glm::vec2(1.0, (float)1920.0/(float)1080.0);
 	shaderProgram = ShaderImporter::getInstance()->loadShaderProgram(MeshLoadInfo::LIGHT_SHAFT_MARKER_SHADER);
 	shaderProgram->loadUniformLocations();
 

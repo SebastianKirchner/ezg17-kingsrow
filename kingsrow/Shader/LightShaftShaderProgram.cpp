@@ -29,8 +29,10 @@ void LightShaftShaderProgram::fillUniformLocation(MeshNode * node, std::vector<L
 void LightShaftShaderProgram::fillUniformLocation(LightShaft * lightShaft, LightNode* light)
 {
 	glUniform2f(locationLightScreenPos, light->getLightPositionScreenSpace().x, light->getLightPositionScreenSpace().y);
-	glActiveTexture(GL_TEXTURE0);
+	//std::cout << light->getLightPositionScreenSpace().x << ", " << light->getLightPositionScreenSpace().y << std::endl;
 	glBindTexture(GL_TEXTURE_2D_ARRAY, lightShaft->getTextureArrayColor());
+	//glActiveTexture(GL_TEXTURE0);
+	
 	glUniform1i(locationTex, 0);
 	glUniform1i(locationSamples, lightShaft->getSamples());
 	glUniform1f(locationExposure, lightShaft->getExposure());

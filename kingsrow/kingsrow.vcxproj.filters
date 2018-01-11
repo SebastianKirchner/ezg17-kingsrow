@@ -108,6 +108,7 @@
     <Text Include="Shader\Vertex\LightShaftMarkerVertexShader.glsl" />
     <Text Include="Shader\Fragment\testFragmenShader.glsl" />
     <Text Include="Shader\Vertex\testVertexShader.glsl" />
+    <Text Include="Assets\Models\teapot.obj" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
@@ -217,7 +218,6 @@
     <None Include="Shader\Vertex\HighPassVertexShader.glsl" />
     <None Include="Shader\Vertex\RenderSurfaceVertexShader.glsl" />
     <None Include="Shader\Vertex\ShadowMappingVertexShader.vertexshader" />
-    <None Include="Shader\Vertex\SimpleVertexShader.vertexshader" />
     <None Include="Shader\Vertex\TextVertexShader.vertexshader" />
     <None Include="Shader\Fragment\BloomFragmentShader.glsl" />
     <None Include="Shader\Fragment\BlurFragmentShader.glsl" />
@@ -228,8 +228,9 @@
     <None Include="Shader\Fragment\HighPassFragmentShader.glsl" />
     <None Include="Shader\Fragment\RenderSurfaceFragmentShader.glsl" />
     <None Include="Shader\Fragment\ShadowMappingFragmentShader.fragmentshader" />
-    <None Include="Shader\Fragment\SimpleFragmentShader.fragmentshader" />
     <None Include="Shader\Fragment\TextFragmentShader.fragmentshader" />
     <None Include="Shader\Geometry\DepthGeometryShader.geometryshader" />
+    <None Include="Shader\Fragment\SimpleFragmentShader.glsl" />
+    <None Include="Shader\Vertex\SimpleVertexShader.glsl" />
   </ItemGroup>
 </Project>

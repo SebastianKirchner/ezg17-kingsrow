@@ -35,42 +35,48 @@ uniform ShaftsParams params;
 void main(void)
 {
 	// Set the basic color
-	outColor = vec4(0);
+	outColor = vec4(0.5,0.5,0.5,0.5);
 
 	// Get current texture coordinates.
 	vec2 textCoo = inoutTexCoord.xy;
-
+		
 	// Calculate the vector that is a one step on vector from lightsource to
 	// the pixel of image.
 	vec2 deltaTextCoord = textCoo - lightScreenPos;
- 	deltaTextCoord *= 1.0 /  float(params.samples) * params.density;
+	deltaTextCoord *= 1.0 / 100 * 0.84;//float(params.samples) * params.density;
  	
 	// Set up illumination decay factor.
 	float illuminationDecay = 1.0;
 
 	// Evaluate the summation of shadows from occlusion texture
-	for(int i=0; i < params.samples ; i++)
+	for(int i=0; i < 100 ; i++)
   	{
 		// Step sample location along ray.
 		textCoo -= deltaTextCoord;
 
 		// Retrieve sample at new location.  
-		vec4 colorSample  = texture(tex, vec3( clamp(textCoo,0,1), 0 ) );
+		vec4 colorSample  = texture(tex, vec3( clamp(textCoo,0,1), 1 ) );
 			
 		// Apply sample attenuation scale/decay factors.
-		colorSample  *= illuminationDecay * params.weight;
+		colorSample  *= illuminationDecay * 6.65;
 
 		// Accumulate combined color.  
-		outColor += colorSample;
+		outColor += colorSample;	
 
 		// Update exponential decay factor.
-		illuminationDecay *= params.decay;
+		illuminationDecay *= 0.995;
  	}
 
-	// Output final color with a further scale control factor.
-	outColor *= params.exposure;
+	if (inoutTexCoord.x > lightScreenPos.x - 0.01 && inoutTexCoord.x < lightScreenPos.x + 0.01
+		&& inoutTexCoord.y > lightScreenPos.y - 0.01 && inoutTexCoord.y < lightScreenPos.y + 0.01)
+		outColor = vec4(1, 0, 0, 1);
 
+	// Output final color with a further scale control factor.
+	outColor *= 0.0034;
+	
 	// Get the avarage of color from calculated light scattering and normal scene.	
 	outColor += texture( tex, vec3( inoutTexCoord, 1 ) );
-	outColor *= 0.5;
+	//outColor *= 0.5;
+
+	
 }

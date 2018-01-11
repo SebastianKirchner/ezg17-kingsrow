@@ -27,7 +27,7 @@ GLfloat texcoords[12] =
 LightShaft::LightShaft(const MeshLoadInfo::LoadInfo* meshLoadInfo, int width, int height)
 {
 	backLightColor = 0.16;
-	exposure = 0.0034;
+	exposure =  0.9; // 0.0034;
 	decay = 0.995;
 	density = 0.84;
 	weight = 6.65;
@@ -108,7 +108,7 @@ void LightShaft::normalDrawingPass()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBuffers[1]);
 	glViewport(0, 0, width, height);
-	glClearColor(0, 0, 0, 1);
+	glClearColor(0.5, 0.7, 0.9, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 }
@@ -130,7 +130,7 @@ void LightShaft::composingDrawingPass(glm::mat4 VPmat, LightNode * lightShaftLig
 	// Bind and clear the buffer (default one) for rendering the final scene
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	glViewport(0, 0, width, height);
-	glClearColor(0, 0, 0, 1);
+	glClearColor(0.5, 0.7, 0.9, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	/// Get the screen position of point light in (0,1) coordinates. It is needed for future
@@ -141,6 +141,7 @@ void LightShaft::composingDrawingPass(glm::mat4 VPmat, LightNode * lightShaftLig
 		(lightNDCPosition.x + 1) * 0.5,
 		(lightNDCPosition.y + 1) * 0.5
 	);
+	//std::cout << "calculated light location " << lightScreenPosition.x << "; " << lightScreenPosition.y << std::endl;
 	lightShaftLight->setLightPositionScreenSpace(lightScreenPosition);
 	/// Draw the final scene using the texture array containing the occlusion and normal scene.
 	/// Also the screen position of point light is needed. Use vertex buffers with positions and
@@ -148,7 +149,7 @@ void LightShaft::composingDrawingPass(glm::mat4 VPmat, LightNode * lightShaftLig
 	GLuint id = shaderProgram->getShaderId();
 	glUseProgram(id);
 	shaderProgram->fillUniformLocation(this, lightShaftLight);
-	glBindTexture(GL_TEXTURE_2D_ARRAY, renderTextureArrayColor);
+	//glBindTexture(GL_TEXTURE_2D_ARRAY, renderTextureArrayColor);
 
 	glBindVertexArray(VAO);
 	glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);

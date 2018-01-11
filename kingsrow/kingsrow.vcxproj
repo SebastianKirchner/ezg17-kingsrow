@@ -198,6 +198,7 @@
     <ClInclude Include="Util\UuidHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Assets\Models\teapot.obj" />
     <Text Include="Shader\Fragment\LightShaftFragmentShader.glsl" />
     <Text Include="Shader\Fragment\LightShaftMarkerFragmentShader.glsl" />
     <Text Include="Shader\Fragment\testFragmenShader.glsl" />
@@ -216,7 +217,7 @@
     <None Include="Shader\Fragment\HighPassFragmentShader.glsl" />
     <None Include="Shader\Fragment\RenderSurfaceFragmentShader.glsl" />
     <None Include="Shader\Fragment\ShadowMappingFragmentShader.fragmentshader" />
-    <None Include="Shader\Fragment\SimpleFragmentShader.fragmentshader" />
+    <None Include="Shader\Fragment\SimpleFragmentShader.glsl" />
     <None Include="Shader\Fragment\TextFragmentShader.fragmentshader" />
     <None Include="Shader\Geometry\DepthGeometryShader.geometryshader" />
     <None Include="Shader\Vertex\BloomVertexShader.glsl" />
@@ -228,7 +229,7 @@
     <None Include="Shader\Vertex\HighPassVertexShader.glsl" />
     <None Include="Shader\Vertex\RenderSurfaceVertexShader.glsl" />
     <None Include="Shader\Vertex\ShadowMappingVertexShader.vertexshader" />
-    <None Include="Shader\Vertex\SimpleVertexShader.vertexshader" />
+    <None Include="Shader\Vertex\SimpleVertexShader.glsl" />
     <None Include="Shader\Vertex\TextVertexShader.vertexshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

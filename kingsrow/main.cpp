@@ -34,8 +34,8 @@
 int main() {
 
 	//Update the values also in LightNode, in case these values change
-	int viewPortResX = 1024;
-	int viewPortResY = 756;
+	int viewPortResX = 1920;
+	int viewPortResY = 1080;
 	Renderer* renderer = Renderer::getInstance();
 	if (renderer->init(viewPortResX, viewPortResY) == -1) {
 		return -1;
@@ -66,7 +66,8 @@ int main() {
 	//LightNode* lightSpot6 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
 	//LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
 
-	LightNode* light = new PointLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0, glm::vec3(1, 1, 1));
+	//LightNode* light = new PointLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0, glm::vec3(1, 1, 1));
+	LightNode* light = new PointLightNode(generateUuid(), glm::vec3(0, 0, 0), 1.0, glm::vec3(1, 1, 1));
 	lights1.push_back(light);
 	/*lights1.push_back(lightSpot1);
 	lights1.push_back(lightSpot2);
@@ -82,7 +83,7 @@ int main() {
 	renderer->setLights(lightMap.find(1)->second);
 	std::vector<LightNode*> lights = lights1;
 
-	MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
+	/*MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
 	MeshNode* groundMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::GROUND);
 
 	MeshNode* treeMesh1 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
@@ -154,8 +155,27 @@ int main() {
 	drawArray.push_back(streetLamp6);
 	drawArray.push_back(cubeMap);
 
+	*/
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
 	sceneGraph->setParent(nullptr);
+
+
+	MeshNode* teapot = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TEAPOT);
+	teapot->prepareForRendering();
+	std::vector<MeshNode*> drawArray;
+	drawArray.push_back(teapot);
+	SceneNode* transformTeapotNode = new TransformNode(generateUuid(), glm::mat4(
+		0.4, 0, 0, 0,
+		0, 0.4, 0, 0,
+	    0, 0, 0.4, 0,
+		0, 0, 2, 1));
+	transformTeapotNode->attachChild(teapot);
+	sceneGraph->attachChild(transformTeapotNode);
+
+
+
+
+	/*
 	SceneNode* transformNodeGround = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.4, 0,
 		0, 0.4, 0, 0,
@@ -311,7 +331,7 @@ int main() {
 
 	sceneGraph->attachChild(transformNodeBridge);
 	sceneGraph->attachChild(transformNodeCubeMap);
-
+*/
 	SceneNode* playerTransform = new TransformNode(generateUuid(), glm::mat4(
 		1, 0, 0, 0,
 		0, 1, 0, 0,
@@ -366,6 +386,7 @@ int main() {
 		}
 
 		lightShaft->occlusionDrawingPass(lights.at(0));
+		
 		renderer->drawLightMarker(drawArray.at(0), lights.at(0));
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------

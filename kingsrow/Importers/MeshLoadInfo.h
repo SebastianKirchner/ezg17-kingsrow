@@ -47,5 +47,6 @@ public:
 	static const LoadInfo* CUBEMAP;
 	static const LoadInfo* STREET_LAMP;
 	static const LoadInfo* GROUND;
+	static const LoadInfo* TEAPOT;
 
 };
