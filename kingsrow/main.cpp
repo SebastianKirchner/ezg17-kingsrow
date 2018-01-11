@@ -364,7 +364,7 @@ int main() {
 		input->update(renderer->getWindow());
 
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-		//glEnable(GL_CLIP_DISTANCE0);
+		glEnable(GL_CLIP_DISTANCE0);
 
 		time = glfwGetTime();
 		double deltaTime = time - oldTime;
