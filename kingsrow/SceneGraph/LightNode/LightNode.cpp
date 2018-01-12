@@ -23,7 +23,7 @@ LightNode::LightNode(int uuid, glm::vec3 position, GLfloat intensity, glm::vec3 
 
 	glVertexAttribPointer(glGetAttribLocation(shaderProgram->getShaderId(), "inPosition"), 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(position), glm::value_ptr(position), GL_STATIC_DRAW);
-	glEnableVertexAttribArray(shaderProgram->getShaderId());
+	glEnableVertexAttribArray(glGetAttribLocation(shaderProgram->getShaderId(), "inPosition"));
 
 	glBindVertexArray(0);
 }

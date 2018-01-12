@@ -9,7 +9,7 @@ struct LightSource {
 	vec2 cutOff;
 };
 
-#define NR_LIGHTS 6
+#define NR_LIGHTS 10
 
 // Interpolated values from the vertex shaders
 in vec2 UV;

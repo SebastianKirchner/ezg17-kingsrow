@@ -108,7 +108,7 @@ void LightShaft::normalDrawingPass()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBuffers[1]);
 	glViewport(0, 0, width, height);
-	glClearColor(0.5, 0.7, 0.9, 1);
+	glClearColor(0.1, 0.1, 0.4, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 }
@@ -130,7 +130,7 @@ void LightShaft::composingDrawingPass(glm::mat4 VPmat, LightNode * lightShaftLig
 	// Bind and clear the buffer (default one) for rendering the final scene
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	glViewport(0, 0, width, height);
-	glClearColor(0.5, 0.7, 0.9, 1);
+	glClearColor(0.1, 0.1, 0.4, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	/// Get the screen position of point light in (0,1) coordinates. It is needed for future

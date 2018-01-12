@@ -58,24 +58,36 @@ int main() {
 
 	std::vector<LightNode*> lights1;
 	//room 1
-	//LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 1));
-	//LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 1));
-	//LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, -3.7), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	//LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.8, 3.7), 1.0f, glm::vec3(0, 0, 1), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	//LightNode* lightSpot5 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 0), 1.0f, glm::vec3(0, 1, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	//LightNode* lightSpot6 = new SpotLightNode(generateUuid(), glm::vec3(0, 2.8, 1), 1.0f, glm::vec3(1, 0, 0), glm::vec3(0, -1, 0), glm::vec2(5, 2));
-	//LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
+	
 
 	//LightNode* light = new PointLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0, glm::vec3(1, 1, 1));
-	LightNode* light = new PointLightNode(generateUuid(), glm::vec3(0, 0, 0), 1.0, glm::vec3(1, 1, 1));
+	LightNode* light = new PointLightNode(generateUuid(), glm::vec3(0, 8, 10), 1.0, glm::vec3(1, 1, 1));
+	
+	LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.3, -1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot2 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.3, 1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot3 = new SpotLightNode(generateUuid(), glm::vec3(-2, 2.3, -1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot4 = new SpotLightNode(generateUuid(), glm::vec3(-2, 2.3, 1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot5 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.3, -1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot6 = new SpotLightNode(generateUuid(), glm::vec3(1, 2.3, 1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot7 = new SpotLightNode(generateUuid(), glm::vec3(4, 2.3, 1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot8 = new SpotLightNode(generateUuid(), glm::vec3(4, 2.3, -1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot9 = new SpotLightNode(generateUuid(), glm::vec3(7, 2.3, 1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	LightNode* lightSpot10 = new SpotLightNode(generateUuid(), glm::vec3(7, 2.3, -1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
+	//LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
+
 	lights1.push_back(light);
-	/*lights1.push_back(lightSpot1);
+
+	lights1.push_back(lightSpot1);
 	lights1.push_back(lightSpot2);
 	lights1.push_back(lightSpot3);
 	lights1.push_back(lightSpot4);
 	lights1.push_back(lightSpot5);
 	lights1.push_back(lightSpot6);
-	lights1.push_back(lightDir1);*/
+	lights1.push_back(lightSpot7);
+	lights1.push_back(lightSpot8);
+	lights1.push_back(lightSpot9);
+	lights1.push_back(lightSpot10);
+	////lights1.push_back(lightDir1);
 
 	std::map<int, std::vector<LightNode*>> lightMap;
 	lightMap.insert(std::pair<int, std::vector<LightNode*>>(1, lights1));
@@ -83,7 +95,7 @@ int main() {
 	renderer->setLights(lightMap.find(1)->second);
 	std::vector<LightNode*> lights = lights1;
 
-	/*MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
+	MeshNode* bridgeMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::BRIDGE);
 	MeshNode* groundMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::GROUND);
 
 	MeshNode* treeMesh1 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TREE);
@@ -105,8 +117,14 @@ int main() {
 	MeshNode* streetLamp4 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp5 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp6 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
+	MeshNode* streetLamp7 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
+	MeshNode* streetLamp8 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
+	MeshNode* streetLamp9 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
+	MeshNode* streetLamp10 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
+
+	MeshNode* moonMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::MOON);
 	
-	MeshNode* cubeMap = MeshImporter::getInstance()->getMesh(MeshLoadInfo::CUBEMAP);
+	//MeshNode* cubeMap = MeshImporter::getInstance()->getMesh(MeshLoadInfo::CUBEMAP);
 
 	bridgeMesh->prepareForRendering();
 	groundMesh->prepareForRendering();
@@ -128,9 +146,14 @@ int main() {
 	streetLamp4->prepareForRendering();
 	streetLamp5->prepareForRendering();
 	streetLamp6->prepareForRendering();
+	streetLamp7->prepareForRendering();
+	streetLamp8->prepareForRendering();
+	streetLamp9->prepareForRendering();
+	streetLamp10->prepareForRendering();
+	moonMesh->prepareForRendering();
 
 
-	cubeMap->prepareForRendering();
+	//cubeMap->prepareForRendering();
 
 	std::vector<MeshNode*> drawArray;
 	drawArray.push_back(bridgeMesh);
@@ -153,29 +176,34 @@ int main() {
 	drawArray.push_back(streetLamp4);
 	drawArray.push_back(streetLamp5);
 	drawArray.push_back(streetLamp6);
-	drawArray.push_back(cubeMap);
+	drawArray.push_back(streetLamp7);
+	drawArray.push_back(streetLamp8);
+	drawArray.push_back(streetLamp9);
+	drawArray.push_back(streetLamp10);
+	drawArray.push_back(moonMesh);
+	//drawArray.push_back(cubeMap);
 
-	*/
+	
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
 	sceneGraph->setParent(nullptr);
 
 
-	MeshNode* teapot = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TEAPOT);
-	teapot->prepareForRendering();
-	std::vector<MeshNode*> drawArray;
-	drawArray.push_back(teapot);
-	SceneNode* transformTeapotNode = new TransformNode(generateUuid(), glm::mat4(
-		0.4, 0, 0, 0,
-		0, 0.4, 0, 0,
-	    0, 0, 0.4, 0,
-		0, 0, 2, 1));
-	transformTeapotNode->attachChild(teapot);
-	sceneGraph->attachChild(transformTeapotNode);
+	//MeshNode* teapot = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TEAPOT);
+	//teapot->prepareForRendering();
+	//std::vector<MeshNode*> drawArray;
+	//drawArray.push_back(teapot);
+	//SceneNode* transformTeapotNode = new TransformNode(generateUuid(), glm::mat4(
+	//	0.4, 0, 0, 0,
+	//	0, 0.4, 0, 0,
+	//    0, 0, 0.4, 0,
+	//	0, 0, 2, 1));
+	//transformTeapotNode->attachChild(teapot);
+	//sceneGraph->attachChild(transformTeapotNode);
 
 
 
 
-	/*
+	
 	SceneNode* transformNodeGround = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.4, 0,
 		0, 0.4, 0, 0,
@@ -247,43 +275,68 @@ int main() {
 		0, 0.7, 0, 0,
 		0, 0, 0.7, 0,
 		10, -1, 4.5, 1));
+	SceneNode* transformNodeMoon = new TransformNode(generateUuid(), glm::mat4(
+		0.7, 0, 0, 0,
+		0, 0.7, 0, 0,
+		0, 0, 0.7, 0,
+		0, 8, 11, 1));
 	
-	SceneNode* transformNodeCubeMap = new TransformNode(generateUuid(), glm::mat4(
-		4, 0, 0, 0,
-		0, 2.5, 0, 0,
-		0, 0, 2.5, 0,
-		0, 0, 0, 1));
+	//SceneNode* transformNodeCubeMap = new TransformNode(generateUuid(), glm::mat4(
+	//	4, 0, 0, 0,
+	//	0, 2.5, 0, 0,
+	//	0, 0, 2.5, 0,
+	//	0, 0, 0, 1));
 
 	SceneNode* streetLampNode1 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		-5, -1, -4.5, 1));
+		-5, -1, -2.5, 1));
 	SceneNode* streetLampNode2 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		-5, -1, 4.5, 1));
+		-5, -1, 2.5, 1));
 	SceneNode* streetLampNode3 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		-2, -1, -4.5, 1));
+		-2, -1, -2.5, 1));
 	SceneNode* streetLampNode4 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		-2, -1, 4.5, 1));
+		-2, -1, 2.5, 1));
 	SceneNode* streetLampNode5 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		1, -1, -4.5, 1));
+		1, -1, -2.5, 1));
 	SceneNode* streetLampNode6 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		1, -1, 4.5, 1));
+		1, -1, 2.5, 1));
+	SceneNode* streetLampNode7 = new TransformNode(generateUuid(), glm::mat4(
+		0, 0, -0.3, 0,
+		0, 0.6, 0, 0,
+		0.3, 0, 0, 0,
+		4, -1, 2.5, 1));
+	SceneNode* streetLampNode8 = new TransformNode(generateUuid(), glm::mat4(
+		0, 0, 0.3, 0,
+		0, 0.6, 0, 0,
+		-0.3, 0, 0, 0,
+		4, -1, -2.5, 1));
+	SceneNode* streetLampNode9 = new TransformNode(generateUuid(), glm::mat4(
+		0, 0, -0.3, 0,
+		0, 0.6, 0, 0,
+		0.3, 0, 0, 0,
+		7, -1, 2.5, 1));
+	SceneNode* streetLampNode10 = new TransformNode(generateUuid(), glm::mat4(
+		0, 0, 0.3, 0,
+		0, 0.6, 0, 0,
+		-0.3, 0, 0, 0,
+		7, -1, -2.5, 1));
 
 	transformNodeBridge->attachChild(bridgeMesh);
 	transformNodeGround->attachChild(groundMesh);
@@ -300,13 +353,18 @@ int main() {
 	transformNodeTree10->attachChild(treeMesh10);
 	transformNodeTree11->attachChild(treeMesh11);
 	transformNodeTree12->attachChild(treeMesh12);
-	transformNodeCubeMap->attachChild(cubeMap);
+	transformNodeMoon->attachChild(moonMesh);
+	//transformNodeCubeMap->attachChild(cubeMap);
 	streetLampNode1->attachChild(streetLamp1);
 	streetLampNode2->attachChild(streetLamp2);
 	streetLampNode3->attachChild(streetLamp3);
 	streetLampNode4->attachChild(streetLamp4);
 	streetLampNode5->attachChild(streetLamp5);
 	streetLampNode6->attachChild(streetLamp6);
+	streetLampNode7->attachChild(streetLamp7);
+	streetLampNode8->attachChild(streetLamp8);
+	streetLampNode9->attachChild(streetLamp9);
+	streetLampNode10->attachChild(streetLamp10);
 
 	sceneGraph->attachChild(transformNodeGround);
 	sceneGraph->attachChild(transformNodeTree);
@@ -321,6 +379,7 @@ int main() {
 	sceneGraph->attachChild(transformNodeTree10);
 	sceneGraph->attachChild(transformNodeTree11);
 	sceneGraph->attachChild(transformNodeTree12);
+	sceneGraph->attachChild(transformNodeMoon);
 
 	sceneGraph->attachChild(streetLampNode1);
 	sceneGraph->attachChild(streetLampNode2);
@@ -328,10 +387,14 @@ int main() {
 	sceneGraph->attachChild(streetLampNode4);
 	sceneGraph->attachChild(streetLampNode5);
 	sceneGraph->attachChild(streetLampNode6);
+	sceneGraph->attachChild(streetLampNode7);
+	sceneGraph->attachChild(streetLampNode8);
+	sceneGraph->attachChild(streetLampNode9);
+	sceneGraph->attachChild(streetLampNode10);
 
 	sceneGraph->attachChild(transformNodeBridge);
-	sceneGraph->attachChild(transformNodeCubeMap);
-*/
+	//sceneGraph->attachChild(transformNodeCubeMap);
+
 	SceneNode* playerTransform = new TransformNode(generateUuid(), glm::mat4(
 		1, 0, 0, 0,
 		0, 1, 0, 0,

@@ -11,6 +11,12 @@ in vec2 inoutTexCoord;
 /** Output color of the pixel */
 out vec4 outColor;
 
+uniform int samples;
+uniform float exposure;
+uniform	float decay;
+uniform	float density;
+uniform	float weight;
+
 /** Position of the light source on screen */
 uniform vec2 lightScreenPos;
 
@@ -21,16 +27,7 @@ uniform sampler2DArray tex;
 * This is uniform layout storing all needed light shafts parameters.
 * Using this layout application will update the uniform.
 */
-struct ShaftsParams
-{
-    int samples;
-	float exposure;
-	float decay;
-	float density;
-	float weight;
-};
 
-uniform ShaftsParams params;
 
 void main(void)
 {
@@ -67,16 +64,12 @@ void main(void)
 		illuminationDecay *= 0.995;
  	}
 
-	if (inoutTexCoord.x > lightScreenPos.x - 0.01 && inoutTexCoord.x < lightScreenPos.x + 0.01
-		&& inoutTexCoord.y > lightScreenPos.y - 0.01 && inoutTexCoord.y < lightScreenPos.y + 0.01)
-		outColor = vec4(1, 0, 0, 1);
-
 	// Output final color with a further scale control factor.
-	outColor *= 0.0034;
+	outColor *= 0.0014;
 	
 	// Get the avarage of color from calculated light scattering and normal scene.	
-	outColor += texture( tex, vec3( inoutTexCoord, 1 ) );
-	//outColor *= 0.5;
+	outColor += texture( tex, vec3( inoutTexCoord, 1) );
+	outColor *= 0.5;
 
 	
 }

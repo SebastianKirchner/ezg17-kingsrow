@@ -48,5 +48,6 @@ public:
 	static const LoadInfo* STREET_LAMP;
 	static const LoadInfo* GROUND;
 	static const LoadInfo* TEAPOT;
+	static const LoadInfo* MOON;
 
 };

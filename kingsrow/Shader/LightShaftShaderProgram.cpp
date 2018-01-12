@@ -15,11 +15,11 @@ void LightShaftShaderProgram::loadUniformLocations()
 {
 	locationLightScreenPos = glGetUniformLocation(programId, "lightScreenPos");
 	locationTex = glGetUniformLocation(programId, "tex");
-	locationSamples = glGetUniformLocation(programId, "params.samples");
-	locationExposure = glGetUniformLocation(programId, "params.exposure");
-	locationDecay = glGetUniformLocation(programId, "params.decay");
-	locationDensity = glGetUniformLocation(programId, "params.density");
-	locationWeight = glGetUniformLocation(programId, "params.weight");
+	locationSamples = glGetUniformLocation(programId, "samples");
+	locationExposure = glGetUniformLocation(programId, "exposure");
+	locationDecay = glGetUniformLocation(programId, "decay");
+	locationDensity = glGetUniformLocation(programId, "density");
+	locationWeight = glGetUniformLocation(programId, "weight");
 }
 
 void LightShaftShaderProgram::fillUniformLocation(MeshNode * node, std::vector<LightNode*> lights, bool drawOcclusion)

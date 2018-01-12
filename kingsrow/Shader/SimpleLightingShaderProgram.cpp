@@ -50,7 +50,9 @@ void SimpleLightingShaderProgram::bindTextures(MeshNode* node)
 
 void SimpleLightingShaderProgram::useLights(std::vector<LightNode*> lights)
 {
-	for (int i = 0; i < lights.size(); i++) {
+
+	//Do NOT consider the first light, that is for Light Shaft
+	for (int i = 1; i < lights.size(); i++) {
 		std::stringstream position;
 		position << "lights[";
 		position << i;
