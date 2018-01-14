@@ -37,7 +37,7 @@ private:
 
 	ShaderProgram* shaderProgram;
 	glm::vec2 scale;
-	GLuint VAO;			///< Vertex array object needed for shader
-	GLuint VBO;			///< Vertex buffer object needed for shader
+	GLuint VAO;			
+	GLuint VBO;			
 };
 

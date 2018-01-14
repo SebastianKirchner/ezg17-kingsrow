@@ -16,10 +16,5 @@ public:
 private:
 	GLuint locationLightScreenPos;
 	GLuint locationTex;
-	GLuint locationSamples;
-	GLuint locationExposure;
-	GLuint locationDecay;
-	GLuint locationDensity;
-	GLuint locationWeight;
 };
 

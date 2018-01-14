@@ -160,7 +160,6 @@
     <ClCompile Include="Shader\SimpleLightingShaderProgram.cpp" />
     <ClCompile Include="Shader\TextureShaderProgram.cpp" />
     <ClCompile Include="stb_image_def.cpp" />
-    <ClCompile Include="Shader\TestShaderProgram.cpp" />
     <ClCompile Include="Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +189,6 @@
     <ClInclude Include="Shader\TextureShaderProgram.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="Shader\TestShaderProgram.h" />
     <ClInclude Include="Texture\MipmapStateEnum.h" />
     <ClInclude Include="Texture\SamplerStateEnum.h" />
     <ClInclude Include="Texture\Texture.h" />

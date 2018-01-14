@@ -8,7 +8,6 @@
 #include "..\Shader\LightingShaderProgram.h"
 #include "..\Shader\TextureShaderProgram.h"
 #include "..\Shader\SimpleLightingShaderProgram.h"
-#include "..\Shader\TestShaderProgram.h"
 #include "..\Shader\LightShaftShaderProgram.h"
 #include "..\Shader\LightShaftMarkerShaderProgram.h"
 
@@ -114,10 +113,6 @@ ShaderProgram* ShaderImporter::loadShaderProgram(const MeshLoadInfo::ShaderLoadI
 	else if (shader == MeshLoadInfo::LIGHT_SHAFT_MARKER_SHADER)
 	{
 		result = new LightShaftMarkerShaderProgram(shaderProgramID);
-	}
-	else if (shader == MeshLoadInfo::SHADER_TEST)
-	{
-		result = new TestShaderProgram(shaderProgramID);
 	}
 	else if (shader == MeshLoadInfo::SIMPLE_LIGHTING_SHADER)
 	{

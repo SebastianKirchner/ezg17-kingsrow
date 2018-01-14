@@ -2,7 +2,6 @@
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::LIGHTING_SHADER = new ShaderLoadInfo(std::string("vertexShaderPath"), std::string("fragmentShaderPath"));
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::TEXTURE_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/texture_vertex_shader.glsl"), std::string("../kingsrow/Shader/Fragment/texture_fragment_shader.glsl"));
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::SIMPLE_LIGHTING_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/SimpleVertexShader.glsl"), std::string("../kingsrow/Shader/Fragment/SimpleFragmentShader.glsl"));
-const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::SHADER_TEST = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/testVertexShader.glsl"), std::string("../kingsrow/Shader/Fragment/testFragmenShader.glsl"));
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::LIGHT_SHAFT_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/LightShaftVertexShader.glsl"), std::string("../kingsrow/Shader/Fragment/LightShaftFragmentShader.glsl"));
 const MeshLoadInfo::ShaderLoadInfo* MeshLoadInfo::LIGHT_SHAFT_MARKER_SHADER = new ShaderLoadInfo(std::string("../kingsrow/Shader/Vertex/LightShaftMarkerVertexShader.glsl"), std::string("../kingsrow/Shader/Geometry/LightShaftMarkerGeometryShader.glsl"), std::string("../kingsrow/Shader/Fragment/LightShaftMarkerFragmentShader.glsl"));
 //TODO: add light shaft shader

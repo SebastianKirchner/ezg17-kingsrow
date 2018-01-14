@@ -156,6 +156,7 @@ int main() {
 	//cubeMap->prepareForRendering();
 
 	std::vector<MeshNode*> drawArray;
+	std::vector<MeshNode*> occlusionDrawArray;
 	drawArray.push_back(bridgeMesh);
 	drawArray.push_back(groundMesh);
 	drawArray.push_back(treeMesh1);
@@ -181,6 +182,31 @@ int main() {
 	drawArray.push_back(streetLamp9);
 	drawArray.push_back(streetLamp10);
 	drawArray.push_back(moonMesh);
+
+	occlusionDrawArray.push_back(bridgeMesh);
+	occlusionDrawArray.push_back(groundMesh);
+	occlusionDrawArray.push_back(treeMesh1);
+	occlusionDrawArray.push_back(treeMesh2);
+	occlusionDrawArray.push_back(treeMesh3);
+	occlusionDrawArray.push_back(treeMesh4);
+	occlusionDrawArray.push_back(treeMesh5);
+	occlusionDrawArray.push_back(treeMesh6);
+	occlusionDrawArray.push_back(treeMesh7);
+	occlusionDrawArray.push_back(treeMesh8);
+	occlusionDrawArray.push_back(treeMesh9);
+	occlusionDrawArray.push_back(treeMesh10);
+	occlusionDrawArray.push_back(treeMesh11);
+	occlusionDrawArray.push_back(treeMesh12);
+	occlusionDrawArray.push_back(streetLamp1);
+	occlusionDrawArray.push_back(streetLamp2);
+	occlusionDrawArray.push_back(streetLamp3);
+	occlusionDrawArray.push_back(streetLamp4);
+	occlusionDrawArray.push_back(streetLamp5);
+	occlusionDrawArray.push_back(streetLamp6);
+	occlusionDrawArray.push_back(streetLamp7);
+	occlusionDrawArray.push_back(streetLamp8);
+	occlusionDrawArray.push_back(streetLamp9);
+	occlusionDrawArray.push_back(streetLamp10);
 	//drawArray.push_back(cubeMap);
 
 	
@@ -216,14 +242,14 @@ int main() {
 		0, 0, 1, 0,
 		19, -1, 0, 1));
 	SceneNode* transformNodeTree = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
-		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
+		0.4, 0, 0, 0,
+		0, 0.4, 0, 0,
+		0, 0, 0.4, 0,
 		-5, -1, -4.5, 1));
 	SceneNode* transformNodeTree2 = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
+		0.7, 0, -0.2, 0,
 		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
+		0.2, 0, 0.7, 0,
 		-5, -1, 4.5, 1));
 	SceneNode* transformNodeTree3 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0, 0,
@@ -232,23 +258,23 @@ int main() {
 		-2, -1, -4.5, 1));
 	SceneNode* transformNodeTree4 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0, 0,
-		0, 0.7, 0, 0,
+		0, 0.5, 0, 0,
 		0, 0, 0.7, 0,
 		-2, -1, 4.5, 1));
 	SceneNode* transformNodeTree5 = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
-		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
 		1, -1, -4.5, 1));
 	SceneNode* transformNodeTree6 = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
+		0.7, 0, -0.6, 0,
 		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
+		0.6, 0, 0.7, 0,
 		1, -1, 4.5, 1));
 	SceneNode* transformNodeTree7 = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
+		0.7, 0, 0.3, 0,
 		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
+		-0.3, 0, 0.7, 0,
 		4, -1, -4.5, 1));
 	SceneNode* transformNodeTree8 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0, 0,
@@ -257,29 +283,29 @@ int main() {
 		4, -1, 4.5, 1));
 	SceneNode* transformNodeTree9 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0, 0,
-		0, 0.7, 0, 0,
+		0, 1, 0, 0,
 		0, 0, 0.7, 0,
 		7, -1, -4.5, 1));
 	SceneNode* transformNodeTree10 = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
-		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
+		0.5, 0, 0, 0,
+		0, 0.5, 0, 0,
+		0, 0, 0.5, 0,
 		7, -1, 4.5, 1));
 	SceneNode* transformNodeTree11 = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
+		0.7, 0, -0.3, 0,
 		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
+		0.3, 0, 0.7, 0,
 		10, -1, -4.5, 1));
 	SceneNode* transformNodeTree12 = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
-		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
+		1.2, 0, 0, 0,
+		0, 1.2, 0, 0,
+		0, 0, 1.2, 0,
 		10, -1, 4.5, 1));
 	SceneNode* transformNodeMoon = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0, 0,
+		0.7, 0, 0.6, 0,
 		0, 0.7, 0, 0,
-		0, 0, 0.7, 0,
-		0, 8, 11, 1));
+		-0.6, 0, 0.7, 0,
+		0, 8, 10, 1));
 	
 	//SceneNode* transformNodeCubeMap = new TransformNode(generateUuid(), glm::mat4(
 	//	4, 0, 0, 0,
@@ -451,7 +477,7 @@ int main() {
 		lightShaft->occlusionDrawingPass(lights.at(0));
 		
 		renderer->drawLightMarker(drawArray.at(0), lights.at(0));
-		for (MeshNode* node : drawArray) {
+		for (MeshNode* node : occlusionDrawArray) {
 			//-------------draw-------------------
 			renderer->draw(node, true);
 		}

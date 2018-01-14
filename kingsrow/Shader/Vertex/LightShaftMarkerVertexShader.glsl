@@ -1,15 +1,9 @@
-/**
-* This file is a part of a project from http://zompi.pl/light-shafts/
-* (c) 2014 Damian Nowakowski
-*/
-
 #version 330 core
 
 in vec3 inPosition;
-out vec4 inoutPosition;
+out vec4 geomPosition;
 
 void main()
 {
-	// Just pass the position to the geometry shader.
-	inoutPosition = vec4(inPosition, 1);
+	geomPosition = vec4(inPosition, 1);
 }

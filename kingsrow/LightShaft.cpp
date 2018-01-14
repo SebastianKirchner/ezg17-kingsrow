@@ -1,6 +1,6 @@
 #include "LightShaft.h"
 
-///< Vertex coordinates of final scene (quad filling whole screen)
+// Vertex coordinates of final scene 
 GLfloat rect[12] =
 {
 	-1.0f, -1.0f,
@@ -12,7 +12,7 @@ GLfloat rect[12] =
 	-1.0f, 1.0f
 };
 
-///< Texture coordinates of final scene (quad filling whole screen)
+// Texture coordinates of final scene
 GLfloat texcoords[12] =
 {
 	0.0f, 0.0f,
@@ -27,69 +27,58 @@ GLfloat texcoords[12] =
 LightShaft::LightShaft(const MeshLoadInfo::LoadInfo* meshLoadInfo, int width, int height)
 {
 	backLightColor = 0.16;
-	exposure =  0.9; // 0.0034;
-	decay = 0.995;
-	density = 0.84;
-	weight = 6.65;
-	samples = 100;
 
-	// Generate texture handlers for color and depth components
-	glGenTextures(1, &renderTextureArrayColor);
-	glGenTextures(1, &renderTextureArrayDepth);
+	glGenTextures(1, &textureArrayColor);
+	glGenTextures(1, &textureArrayDepth);
 
-	// Make a texture array for color component. This is where occlusion and scenes will be rendered to.
-	glBindTexture(GL_TEXTURE_2D_ARRAY, renderTextureArrayColor);
+	//render occlusion in it
+	glBindTexture(GL_TEXTURE_2D_ARRAY, textureArrayColor);
 	glTexParameterf(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, width, height, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
-	// Make a texture array for depth component. This is where occlusion and scenes depth buffer will be rendered to.
-	glBindTexture(GL_TEXTURE_2D_ARRAY, renderTextureArrayDepth);
+	//render depth in it
+	glBindTexture(GL_TEXTURE_2D_ARRAY, textureArrayDepth);
 	glTexParameterf(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_DEPTH_COMPONENT, width, height, 2, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
-	// Generate two frame buffers that will be used for rendering to textures
+
 	glGenFramebuffers(2, frameBuffers);
 
-	// Bind first frame buffer to the first position of rexture array of color and depth. This is where occlusion will be rendered.
+	// 0: occlusin frambuffer
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBuffers[0]);
-	glFramebufferTextureLayer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, renderTextureArrayColor, 0, 0);
-	glFramebufferTextureLayer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, renderTextureArrayDepth, 0, 0);
+	glFramebufferTextureLayer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureArrayColor, 0, 0);
+	glFramebufferTextureLayer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, textureArrayDepth, 0, 0);
 
-	// Bind first frame buffer to the second position of rexture array of color and depth. This is where the normal scene will be rendered.
+	// 1: normal scene framebuffer
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBuffers[1]);
-	glFramebufferTextureLayer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, renderTextureArrayColor, 0, 1);
-	glFramebufferTextureLayer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, renderTextureArrayDepth, 0, 1);
+	glFramebufferTextureLayer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureArrayColor, 0, 1);
+	glFramebufferTextureLayer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, textureArrayDepth, 0, 1);
 
-	// Bind the basic frame buffer for now in order to not make a mess.
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
 	shaderProgram = ShaderImporter::getInstance()->loadShaderProgram(meshLoadInfo->shaderInfo);
 	shaderProgram->loadUniformLocations();
 
-	vertex_loc = glGetAttribLocation(shaderProgram->getShaderId(), "position");
-	texcoord_loc = glGetAttribLocation(shaderProgram->getShaderId(), "texCoord");
+	locationVertex = glGetAttribLocation(shaderProgram->getShaderId(), "position");
+	LocationTexCoord = glGetAttribLocation(shaderProgram->getShaderId(), "texCoord");
 
-	/// Generate all necessary buffors for data
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(2, VBO);
-	glGenBuffers(1, &UBO);
 
-	/// Fill the buffer with the vertex data, that are positions of verticies of quad filling the whole screen.
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
-	glVertexAttribPointer(vertex_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(vertex_loc);
+	glVertexAttribPointer(locationVertex, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(locationVertex);
 
-	/// Fill the buffer with the texture coordinates data that are proper for quad filling the whole screen.
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(texcoords), texcoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(texcoord_loc, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(texcoord_loc);
+	glVertexAttribPointer(LocationTexCoord, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(LocationTexCoord);
 
 	
 	glBindVertexArray(0);
@@ -152,7 +141,6 @@ void LightShaft::composingDrawingPass(glm::mat4 VPmat, LightNode * lightShaftLig
 	//glBindTexture(GL_TEXTURE_2D_ARRAY, renderTextureArrayColor);
 
 	glBindVertexArray(VAO);
-	glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindBufferBase(GL_UNIFORM_BUFFER, 0, 0);
 	glBindVertexArray(0);

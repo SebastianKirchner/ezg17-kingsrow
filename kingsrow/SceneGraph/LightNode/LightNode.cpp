@@ -16,8 +16,6 @@ LightNode::LightNode(int uuid, glm::vec3 position, GLfloat intensity, glm::vec3 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 
-	/// Fill the buffer with the vertex data, that is a position of point light.
-	/// Only one point is needed, bedause the whole marker will be generated in geometry shader.
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 

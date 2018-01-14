@@ -29,7 +29,6 @@ public:
 	static const ShaderLoadInfo* LIGHT_SHAFT_SHADER;
 	static const ShaderLoadInfo* LIGHT_SHAFT_MARKER_SHADER;
 	static const ShaderLoadInfo* LIGHT_SHAFT_MODEL_RENDERER_SHADER;
-	static const ShaderLoadInfo* SHADER_TEST;
 
 
 	struct LoadInfo {

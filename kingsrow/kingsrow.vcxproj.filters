@@ -96,9 +96,6 @@
     <ClCompile Include="Shader\LightShaftMarkerShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shader\TestShaderProgram.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shader\Vertex\LightShaftVertexShader.glsl" />
@@ -202,9 +199,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shader\LightShaftMarkerShaderProgram.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader\TestShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
