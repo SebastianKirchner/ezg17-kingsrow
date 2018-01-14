@@ -52,7 +52,7 @@ void main(void)
 		textCoo -= deltaTextCoord;
 
 		// Retrieve sample at new location.  
-		vec4 colorSample  = texture(tex, vec3( clamp(textCoo,0,1), 1 ) );
+		vec4 colorSample  = texture(tex, vec3( clamp(textCoo,0,1), 0 ) );
 			
 		// Apply sample attenuation scale/decay factors.
 		colorSample  *= illuminationDecay * 6.65;
