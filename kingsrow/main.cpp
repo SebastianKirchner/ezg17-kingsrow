@@ -30,6 +30,22 @@
 #include "Texture\SamplerStateEnum.h"
 #include "Texture\MipmapStateEnum.h"
 #include "LightShaft.h"
+#include <fstream>
+
+const std::vector<std::string> explode(const std::string& s, const char& c)
+{
+	std::string buff{ "" };
+	std::vector<std::string> v;
+
+	for (auto n : s)
+	{
+		if (n != c) buff += n; else
+			if (n == c && buff != "") { v.push_back(buff); buff = ""; }
+	}
+	if (buff != "") v.push_back(buff);
+
+	return v;
+}
 
 int main() {
 
@@ -444,9 +460,14 @@ int main() {
 
 	LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
 
+	//std::ofstream myFile;
+	//myFile.open("C:/Users/rebeb/Documents/TU Wien/17WS/Echtzeitgraphik/directions.txt");
+	std::ifstream directionFile("../kingsrow/Assets/CameraMov/directions.txt");
+	std::string currentDirectionInputLine;
 	//gameloop
-	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0) {
-		input->update(renderer->getWindow());
+	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0 && directionFile.is_open()) {
+		//we do not need this, since we have automatic camera movement
+		//input->update(renderer->getWindow());
 
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
@@ -455,7 +476,43 @@ int main() {
 		while (deltaTime > timeStep)
 		{
 			deltaTime -= timeStep;
-			sceneGraph->update(timeStep, input);
+			//myFile << input->w << " " << input->a << " " << input->s << " " << input->d << " " << input->xPos << " " << input->yPos << "\n";
+			if (std::getline(directionFile, currentDirectionInputLine)) {
+				//w a s d x y\n
+				std::vector<std::string> directionComp = explode(currentDirectionInputLine, ' ');
+				if (directionComp.size() == 6) {
+					if (directionComp.at(0) == "1") {
+						input->w = true;
+					}
+					else {
+						input->w = false;
+					}
+					if (directionComp.at(1) == "1") {
+						input->a = true;
+					}
+					else {
+						input->a = false;
+					}
+					if (directionComp.at(2) == "1") {
+						input->s = true;
+					}
+					else {
+						input->s = false;
+					}
+					if (directionComp.at(3) == "1") {
+						input->d = true;
+					}
+					else {
+						input->d = false;
+					}
+					input->xPos = std::atoi(directionComp.at(4).c_str());
+					input->yPos = std::atoi(directionComp.at(5).c_str());
+				}
+				sceneGraph->update(timeStep, input);
+			}
+			else {
+				input->esc = true;
+			}
 		}
 		oldTime = time - deltaTime;
 
@@ -487,7 +544,8 @@ int main() {
 		glfwSwapBuffers(renderer->getWindow());
 		glfwPollEvents();
 	}
-
+	//myFile.close();
+	directionFile.close();
 	glfwTerminate();
 
 	return 0;
