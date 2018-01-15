@@ -166,7 +166,6 @@ void Renderer::useShader(MeshNode* node, std::vector<LightNode*> lights, bool dr
 {
 	ShaderProgram* shaderProgram = node->getShaderProgram();
 	glUseProgram(shaderProgram->getShaderId());
-	
 	shaderProgram->fillUniformLocation(node, lights, drawOcclusion);
 }
 

@@ -16,7 +16,7 @@ public:
 
 private:
 	GLuint locationMVP;
-	GLuint reflectionTexture;
-	GLuint refractionTexture;
+	GLuint locationReflectionTexture;
+	GLuint locationRefractionTexture;
 };
 

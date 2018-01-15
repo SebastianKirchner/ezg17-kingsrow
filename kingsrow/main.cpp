@@ -32,6 +32,36 @@
 #include "LightShaft.h"
 #include "Water.h"
 
+
+GLuint quadVAO = 0;
+GLuint quadVBO;
+void RenderQuad()
+{
+	if (quadVAO == 0)
+	{
+		GLfloat quadVertices[] = {
+			// Positions         // Texture Coords
+			-1.0f,  1.0f, 0.0f,  0.0f, 1.0f,
+			-1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
+			1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
+			1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
+		};
+		// Setup plane VAO
+		glGenVertexArrays(1, &quadVAO);
+		glGenBuffers(1, &quadVBO);
+		glBindVertexArray(quadVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	}
+	glBindVertexArray(quadVAO);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glBindVertexArray(0);
+}
+
 int main() {
 
 	//Update the values also in LightNode, in case these values change
@@ -376,8 +406,6 @@ int main() {
 		oldTime = time - deltaTime;
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		
-
 
 		projectionMatrix = activeCamera->getProjectionMatrix();
 		viewMatrix = activeCamera->getViewMatrix();
@@ -406,7 +434,7 @@ int main() {
 
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
-			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 1), false);
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, 1, 0, 1), false);
 		}
 
 		/*

@@ -17,11 +17,11 @@ Water::Water(ShaderProgram* shaderProgram, int width, int height)
 
 	this->initReflection();
 	this->initRefraction();
-	glUseProgram(shaderProgram->getShaderId());
+	//glUseProgram(shaderProgram->getShaderId());
 	// bind textures
-	glUniform1i(reflectionTexture, 0);
-	glUniform1i(refractionTexture, 1);
-	glUseProgram(0);
+	//glUniform1i(reflectionTexture, 0);
+	//glUniform1i(refractionTexture, 1);
+	//glUseProgram(0);
 }
 
 void Water::initReflection() 
@@ -29,15 +29,16 @@ void Water::initReflection()
 	// create reflectino framebuffer
 	glGenFramebuffers(1, &reflectionFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, reflectionFBO);
-	glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
 	// create reflection texture
 	glGenTextures(1, &reflectionTexture);
 	glBindTexture(GL_TEXTURE_2D, reflectionTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, REFL_WIDTH, REFL_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, reflectionTexture, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, REFL_WIDTH, REFL_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,reflectionTexture, 0);
+	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+	glReadBuffer(GL_NONE);
 
 	// create depth buffer
 	glGenRenderbuffers(1, &reflectionDepthBuffer);
@@ -47,6 +48,10 @@ void Water::initReflection()
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
 		GL_RENDERBUFFER, reflectionDepthBuffer);
 
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+		std::cout << "ERROR::FRAMEBUFFER:: REFLECTION FBO is not complete!" << std::endl;
+	}
+		
 	// reset to default fbo
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, this->width, this->height);
@@ -57,15 +62,16 @@ void Water::initRefraction()
 	// create refraction framebuffer
 	glGenFramebuffers(1, &refractionFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, refractionFBO);
-	glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
 	// create refraction texture
 	glGenTextures(1, &refractionTexture);
 	glBindTexture(GL_TEXTURE_2D, refractionTexture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, REFR_WIDTH, REFR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, refractionTexture, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, refractionTexture, 0);
+	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+	glReadBuffer(GL_NONE);
 
 	// create depth texture
 	glGenTextures(1, &refractionDepthTexture);
@@ -74,8 +80,12 @@ void Water::initRefraction()
 		0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D,
 		refractionDepthTexture, 0);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+		std::cout << "ERROR::FRAMEBUFFER:: REFRACTION FBO is not complete!" << std::endl;
+	}
 
 	// reset to default fbo
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -95,7 +105,7 @@ void Water::refractionPass()
 void Water::bindFBO(GLuint fbo, int width, int height)
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
 	glViewport(0, 0, width, height);
 }
 
