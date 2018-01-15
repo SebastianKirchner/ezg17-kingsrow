@@ -10,6 +10,7 @@
 #include "..\Shader\SimpleLightingShaderProgram.h"
 #include "..\Shader\LightShaftShaderProgram.h"
 #include "..\Shader\LightShaftMarkerShaderProgram.h"
+#include "..\Shader\WaterShaderProgram.h"
 
 ShaderImporter::ShaderImporter()
 {
@@ -118,6 +119,11 @@ ShaderProgram* ShaderImporter::loadShaderProgram(const MeshLoadInfo::ShaderLoadI
 	{
 		result = new SimpleLightingShaderProgram(shaderProgramID);
 	}
+	else if (shader == MeshLoadInfo::WATER_SHADER)
+	{
+		result = new WaterShaderProgram(shaderProgramID);
+	}
+
 	shaderPrograms.insert(std::pair<const MeshLoadInfo::ShaderLoadInfo*, ShaderProgram*>(shader, result));
 	return result;
 }

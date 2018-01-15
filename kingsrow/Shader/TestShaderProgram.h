@@ -3,11 +3,11 @@
 #include "..\Shader\ShaderProgram.h"
 #include "..\Texture\Texture.h"
 
-class SimpleLightingShaderProgram : public ShaderProgram
+class TestShaderProgram : public ShaderProgram
 {
 public:
-	SimpleLightingShaderProgram(GLuint shaderProgramID);
-	~SimpleLightingShaderProgram();
+	TestShaderProgram(GLuint shaderProgramID);
+	~TestShaderProgram();
 
 	virtual void loadUniformLocations();
 	virtual void fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion = false);
@@ -15,15 +15,12 @@ public:
 	virtual void fillUniformLocation(MeshNode* nodem, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture);
 
 private:
-	GLuint locationMVP;
-	GLuint locationV;
-	GLuint locationM;
-	GLuint locationTexture;
-	GLuint locationLight;
-	GLuint locationOcclusion;
-	GLuint locationClipPlane;
-	
-	void useLights(std::vector<LightNode*> lights);
-	void bindTextures(MeshNode* node);
+	GLuint locationLightScreenPos;
+	GLuint locationTex;
+	GLuint locationSamples;
+	GLuint locationExposure;
+	GLuint locationDecay;
+	GLuint locationDensity;
+	GLuint locationWeight;
 };
 

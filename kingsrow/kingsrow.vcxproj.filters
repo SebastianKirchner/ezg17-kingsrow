@@ -96,6 +96,15 @@
     <ClCompile Include="Shader\LightShaftMarkerShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Shader\TestShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Water.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\WaterShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shader\Vertex\LightShaftVertexShader.glsl" />
@@ -201,6 +210,15 @@
     <ClInclude Include="Shader\LightShaftMarkerShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shader\TestShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\WaterShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\Vertex\BloomVertexShader.glsl" />
@@ -226,5 +244,7 @@
     <None Include="Shader\Geometry\DepthGeometryShader.geometryshader" />
     <None Include="Shader\Fragment\SimpleFragmentShader.glsl" />
     <None Include="Shader\Vertex\SimpleVertexShader.glsl" />
+    <None Include="Shader\Vertex\WaterVertexShader.glsl" />
+    <None Include="Shader\Fragment\WaterFragmentShader.glsl" />
   </ItemGroup>
 </Project>

@@ -40,3 +40,7 @@ void TextureShaderProgram::fillUniformLocation(MeshNode* node, std::vector<Light
 void TextureShaderProgram::fillUniformLocation(LightShaft * lightShaft, LightNode * light)
 {
 }
+
+void TextureShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+{
+}

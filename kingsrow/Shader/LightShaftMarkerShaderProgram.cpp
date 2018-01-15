@@ -31,3 +31,7 @@ void LightShaftMarkerShaderProgram::fillUniformLocation(MeshNode * node, std::ve
 void LightShaftMarkerShaderProgram::fillUniformLocation(LightShaft * lightShaft, LightNode * light)
 {
 }
+
+void LightShaftMarkerShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+{
+}

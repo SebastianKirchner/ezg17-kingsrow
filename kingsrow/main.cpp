@@ -30,6 +30,7 @@
 #include "Texture\SamplerStateEnum.h"
 #include "Texture\MipmapStateEnum.h"
 #include "LightShaft.h"
+#include "Water.h"
 #include <fstream>
 
 const std::vector<std::string> explode(const std::string& s, const char& c)
@@ -89,7 +90,6 @@ int main() {
 	LightNode* lightSpot8 = new SpotLightNode(generateUuid(), glm::vec3(4, 2.3, -1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
 	LightNode* lightSpot9 = new SpotLightNode(generateUuid(), glm::vec3(7, 2.3, 1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
 	LightNode* lightSpot10 = new SpotLightNode(generateUuid(), glm::vec3(7, 2.3, -1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
-	//LightNode* lightDir1 = new DirectionalLightNode(generateUuid(), glm::vec3(-5, 5, 0), 1.0f, glm::vec3(0.0, 0.0, 0.0), glm::vec3(1, -1, 0));
 
 	lights1.push_back(light);
 
@@ -103,7 +103,6 @@ int main() {
 	lights1.push_back(lightSpot8);
 	lights1.push_back(lightSpot9);
 	lights1.push_back(lightSpot10);
-	////lights1.push_back(lightDir1);
 
 	std::map<int, std::vector<LightNode*>> lightMap;
 	lightMap.insert(std::pair<int, std::vector<LightNode*>>(1, lights1));
@@ -137,11 +136,9 @@ int main() {
 	MeshNode* streetLamp8 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp9 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp10 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
-
 	MeshNode* moonMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::MOON);
+	MeshNode* plane = MeshImporter::getInstance()->getMesh(MeshLoadInfo::PLANE);
 	
-	//MeshNode* cubeMap = MeshImporter::getInstance()->getMesh(MeshLoadInfo::CUBEMAP);
-
 	bridgeMesh->prepareForRendering();
 	groundMesh->prepareForRendering();
 	treeMesh1->prepareForRendering();
@@ -167,9 +164,7 @@ int main() {
 	streetLamp9->prepareForRendering();
 	streetLamp10->prepareForRendering();
 	moonMesh->prepareForRendering();
-
-
-	//cubeMap->prepareForRendering();
+	plane->prepareForRendering();
 
 	std::vector<MeshNode*> drawArray;
 	std::vector<MeshNode*> occlusionDrawArray;
@@ -223,29 +218,11 @@ int main() {
 	occlusionDrawArray.push_back(streetLamp8);
 	occlusionDrawArray.push_back(streetLamp9);
 	occlusionDrawArray.push_back(streetLamp10);
-	//drawArray.push_back(cubeMap);
 
 	
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
 	sceneGraph->setParent(nullptr);
 
-
-	//MeshNode* teapot = MeshImporter::getInstance()->getMesh(MeshLoadInfo::TEAPOT);
-	//teapot->prepareForRendering();
-	//std::vector<MeshNode*> drawArray;
-	//drawArray.push_back(teapot);
-	//SceneNode* transformTeapotNode = new TransformNode(generateUuid(), glm::mat4(
-	//	0.4, 0, 0, 0,
-	//	0, 0.4, 0, 0,
-	//    0, 0, 0.4, 0,
-	//	0, 0, 2, 1));
-	//transformTeapotNode->attachChild(teapot);
-	//sceneGraph->attachChild(transformTeapotNode);
-
-
-
-
-	
 	SceneNode* transformNodeGround = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.4, 0,
 		0, 0.4, 0, 0,
@@ -322,12 +299,6 @@ int main() {
 		0, 0.7, 0, 0,
 		-0.6, 0, 0.7, 0,
 		0, 8, 10, 1));
-	
-	//SceneNode* transformNodeCubeMap = new TransformNode(generateUuid(), glm::mat4(
-	//	4, 0, 0, 0,
-	//	0, 2.5, 0, 0,
-	//	0, 0, 2.5, 0,
-	//	0, 0, 0, 1));
 
 	SceneNode* streetLampNode1 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
@@ -380,6 +351,14 @@ int main() {
 		-0.3, 0, 0, 0,
 		7, -1, -2.5, 1));
 
+	SceneNode* planeNode = new TransformNode(generateUuid(), glm::mat4(
+		1.0, 0, 0, 0,
+		0, 1.0, 0, 0,
+		0.0, 0, 1.0, 0,
+		1, 0, 1, 1));
+	
+
+	planeNode->attachChild(plane);
 	transformNodeBridge->attachChild(bridgeMesh);
 	transformNodeGround->attachChild(groundMesh);
 
@@ -396,7 +375,6 @@ int main() {
 	transformNodeTree11->attachChild(treeMesh11);
 	transformNodeTree12->attachChild(treeMesh12);
 	transformNodeMoon->attachChild(moonMesh);
-	//transformNodeCubeMap->attachChild(cubeMap);
 	streetLampNode1->attachChild(streetLamp1);
 	streetLampNode2->attachChild(streetLamp2);
 	streetLampNode3->attachChild(streetLamp3);
@@ -435,7 +413,7 @@ int main() {
 	sceneGraph->attachChild(streetLampNode10);
 
 	sceneGraph->attachChild(transformNodeBridge);
-	//sceneGraph->attachChild(transformNodeCubeMap);
+	sceneGraph->attachChild(planeNode);
 
 	SceneNode* playerTransform = new TransformNode(generateUuid(), glm::mat4(
 		1, 0, 0, 0,
@@ -458,7 +436,16 @@ int main() {
 	double timeStep = 1.0 / 60.0;
 	double timeOld = 0;
 
-	LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
+	// declare before loop to avoid memory cost
+	glm::mat4 projectionMatrix;
+	glm::mat4 viewMatrix;
+	glm::mat4 invertedViewMatrix;
+	glm::mat4 viewProjectionMatrix;
+	glm::vec3 playerPosition;
+
+
+	//LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
+	Water* water = new Water(plane->getShaderProgram(),viewPortResX, viewPortResY);
 
 	//std::ofstream myFile;
 	//myFile.open("C:/Users/rebeb/Documents/TU Wien/17WS/Echtzeitgraphik/directions.txt");
@@ -517,18 +504,20 @@ int main() {
 		oldTime = time - deltaTime;
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		
 
+		projectionMatrix = activeCamera->getProjectionMatrix();
+		viewMatrix = activeCamera->getViewMatrix();
+		invertedViewMatrix = activeCamera->getInvertedViewMatrix(-1.0f);
+		viewProjectionMatrix = projectionMatrix * viewMatrix;
+		playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 
-		glm::mat4 projectionMatrix = activeCamera->getProjectionMatrix();
-		glm::mat4 viewMatrix = activeCamera->getViewMatrix();
-		glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
-		glm::vec3 playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
-
-		lightShaft->normalDrawingPass();
+		/*
+		 * LIGHT SHAFT PASSES
+		 */
+		 lightShaft->normalDrawingPass();
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
-			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), false);
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(),  glm::vec4(0, 1, 0, 0), false);
 		}
 
 		lightShaft->occlusionDrawingPass(lights.at(0));
@@ -540,6 +529,30 @@ int main() {
 		}
 		//compose
 		lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
+		
+		/*
+		 * WATER PASSES
+		 */
+ 		glEnable(GL_CLIP_DISTANCE0);
+		 
+		water->reflectionPass();
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			node->draw(invertedViewMatrix, projectionMatrix, invertedViewMatrix * projectionMatrix, player->getPosition(), glm::vec4(0, 1, 0, 0),  false);
+		}
+
+		water->refractionPass();
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 0), false);
+		}
+
+		/*glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glViewport(0, 0, viewPortResX, viewPortResY);
+		glDisable(GL_CLIP_DISTANCE0);		
+
+		renderer->drawWater(plane, viewProjectionMatrix * glm::mat4(plane->propagateMatrix()), water);
+		*/
 
 		glfwSwapBuffers(renderer->getWindow());
 		glfwPollEvents();

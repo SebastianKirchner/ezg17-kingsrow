@@ -27,3 +27,7 @@ void LightShaftShaderProgram::fillUniformLocation(LightShaft * lightShaft, Light
 	glBindTexture(GL_TEXTURE_2D_ARRAY, lightShaft->getTextureArrayColor());	
 	glUniform1i(locationTex, 0);
 }
+
+void LightShaftShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+{
+}

@@ -27,6 +27,7 @@ public:
 	virtual void loadUniformLocations() = 0;
 	virtual void fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion = false) = 0;
 	virtual void fillUniformLocation(LightShaft* lightShaft, LightNode* light) = 0;
+	virtual void fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture) = 0;
 
 protected:
 	GLuint programId;

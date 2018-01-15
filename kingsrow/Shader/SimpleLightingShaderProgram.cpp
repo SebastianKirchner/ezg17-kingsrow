@@ -21,6 +21,7 @@ void SimpleLightingShaderProgram::loadUniformLocations()
 	locationV = glGetUniformLocation(programId, "V");
 	locationM = glGetUniformLocation(programId, "M");
 	locationOcclusion = glGetUniformLocation(programId, "occlusion");
+	locationClipPlane = glGetUniformLocation(programId, "clipPlane");
 }
 
 void SimpleLightingShaderProgram::fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion)
@@ -34,6 +35,8 @@ void SimpleLightingShaderProgram::fillUniformLocation(MeshNode* node, std::vecto
 	glm::mat4 V = node->getViewMatrix();
 	glUniformMatrix4fv(locationV, 1, GL_FALSE, &V[0][0]);
 	glUniform1i(locationOcclusion, drawOcclusion);
+	glUniform4f(locationClipPlane, node->getClipPlane().x, node->getClipPlane().y, node->getClipPlane().z, node->getClipPlane().w);
+
 
 }
 
@@ -104,4 +107,8 @@ void SimpleLightingShaderProgram::useLights(std::vector<LightNode*> lights)
 			glUniform2f(glGetUniformLocation(programId, cutOff.str().c_str()), lights.at(i)->getCutOff().x, lights.at(i)->getCutOff().y);
 		}
 	}
+}
+
+void SimpleLightingShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+{
 }
