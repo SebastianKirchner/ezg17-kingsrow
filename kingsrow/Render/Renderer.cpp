@@ -149,7 +149,7 @@ void Renderer::drawWater(MeshNode* node, glm::mat4 modelViewProjectionMatrix, Wa
 {
 	ShaderProgram* shaderProgram = node->getShaderProgram();
 	glUseProgram(shaderProgram->getShaderId());
-	shaderProgram->fillUniformLocation(node, modelViewProjectionMatrix, water->getReflectionTexture(), water->getRefractionTexture());
+	shaderProgram->fillUniformLocation(node, modelViewProjectionMatrix, water);
 	bindVertexArray(node->getVao());
 	glDrawElements(GL_TRIANGLES, node->getDrawSize(), GL_UNSIGNED_INT, (void*)0);
 	bindVertexArray(0);

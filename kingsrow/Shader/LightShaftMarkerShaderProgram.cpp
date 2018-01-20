@@ -32,6 +32,6 @@ void LightShaftMarkerShaderProgram::fillUniformLocation(LightShaft * lightShaft,
 {
 }
 
-void LightShaftMarkerShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+void LightShaftMarkerShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, Water* water)
 {
 }
