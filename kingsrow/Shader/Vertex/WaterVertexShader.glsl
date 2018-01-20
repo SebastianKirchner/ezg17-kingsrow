@@ -7,6 +7,8 @@ layout(location = 2) in vec2 uv;
 
 // Values that stay constant for the whole mesh.
 uniform mat4 MVP;
+uniform sampler2D reflectionTexture;
+uniform sampler2D refractionTexture;
 
 out vec4 clipSpace;
 

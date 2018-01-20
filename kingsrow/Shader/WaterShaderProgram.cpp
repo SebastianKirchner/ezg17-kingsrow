@@ -31,16 +31,22 @@ void WaterShaderProgram::fillUniformLocation(LightShaft * lightShaft, LightNode 
 {
 }
 
-void WaterShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+void WaterShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, Water* water)
 {
-	glUniform1i(locationReflectionTexture, 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, reflectionTexture);
-	
+	glBindFramebuffer(GL_FRAMEBUFFER, water->getReflectionFBO());
+	glUniform1i(locationReflectionTexture,  0);
+	glActiveTexture(GL_TEXTURE0 + 0);
+	glBindTexture(GL_TEXTURE_2D, water->getReflectionTexture());
+
+	// bind refraction texture to texture location 1 of water shader
+	glBindFramebuffer(GL_FRAMEBUFFER, water->getRefractionFBO());
 	glUniform1i(locationRefractionTexture, 1);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, refractionTexture);
-	
+	glActiveTexture(GL_TEXTURE0 + 1);
+	glBindTexture(GL_TEXTURE_2D, water->getRefractionTexture());
+
+	// reset to default fbo
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glm::mat4 MVP = modelViewProjectionMatrix;
 	glUniformMatrix4fv(locationMVP, 1, GL_FALSE, &MVP[0][0]);
+	
 }

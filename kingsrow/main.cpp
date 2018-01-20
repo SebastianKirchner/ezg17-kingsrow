@@ -352,9 +352,9 @@ int main() {
 		7, -1, -2.5, 1));
 
 	SceneNode* planeNode = new TransformNode(generateUuid(), glm::mat4(
-		1.0, 0, 0, 0,
-		0, 1.0, 0, 0,
-		0.0, 0, 1.0, 0,
+		10.0, 0, 0, 0,
+		0, 10.0, 0, 0,
+		0.0, 0, 10.0, 0,
 		1, 0, 1, 1));
 	
 
@@ -444,17 +444,18 @@ int main() {
 	glm::vec3 playerPosition;
 
 
-	//LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
-	Water* water = new Water(plane->getShaderProgram(),viewPortResX, viewPortResY);
+
+	LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
+	Water* water = new Water(viewPortResX, viewPortResY);
 
 	//std::ofstream myFile;
 	//myFile.open("C:/Users/rebeb/Documents/TU Wien/17WS/Echtzeitgraphik/directions.txt");
 	std::ifstream directionFile("../kingsrow/Assets/CameraMov/directions.txt");
 	std::string currentDirectionInputLine;
 	//gameloop
-	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0 && directionFile.is_open()) {
+	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0) {
 		//we do not need this, since we have automatic camera movement
-		//input->update(renderer->getWindow());
+		input->update(renderer->getWindow());
 
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
@@ -463,6 +464,8 @@ int main() {
 		while (deltaTime > timeStep)
 		{
 			deltaTime -= timeStep;
+			sceneGraph->update(timeStep, input);
+			/*
 			//myFile << input->w << " " << input->a << " " << input->s << " " << input->d << " " << input->xPos << " " << input->yPos << "\n";
 			if (std::getline(directionFile, currentDirectionInputLine)) {
 				//w a s d x y\n
@@ -499,8 +502,9 @@ int main() {
 			}
 			else {
 				input->esc = true;
-			}
+			}*/
 		}
+		
 		oldTime = time - deltaTime;
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -512,8 +516,36 @@ int main() {
 		playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 
 		/*
+		* WATER PASSES
+		*/
+		glEnable(GL_CLIP_DISTANCE0);
+
+		water->reflectionPass();
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			node->draw(invertedViewMatrix, projectionMatrix, invertedViewMatrix * projectionMatrix, player->getPosition(), glm::vec4(0, 1, 0, 0), false);
+		}
+
+		water->refractionPass();
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 0), false);
+		}
+		glDisable(GL_CLIP_DISTANCE0);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glViewport(0, 0, viewPortResX, viewPortResY);
+
+		renderer->drawWater(plane, viewProjectionMatrix * glm::mat4(plane->propagateMatrix()), water);
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 0), false);
+		}
+
+
+		/*
 		 * LIGHT SHAFT PASSES
-		 */
+		 *
 		 lightShaft->normalDrawingPass();
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
@@ -529,31 +561,7 @@ int main() {
 		}
 		//compose
 		lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
-		
-		/*
-		 * WATER PASSES
-		 */
- 		glEnable(GL_CLIP_DISTANCE0);
-		 
-		water->reflectionPass();
-		for (MeshNode* node : drawArray) {
-			//-------------draw-------------------
-			node->draw(invertedViewMatrix, projectionMatrix, invertedViewMatrix * projectionMatrix, player->getPosition(), glm::vec4(0, 1, 0, 0),  false);
-		}
-
-		water->refractionPass();
-		for (MeshNode* node : drawArray) {
-			//-------------draw-------------------
-			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 0), false);
-		}
-
-		/*glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glViewport(0, 0, viewPortResX, viewPortResY);
-		glDisable(GL_CLIP_DISTANCE0);		
-
-		renderer->drawWater(plane, viewProjectionMatrix * glm::mat4(plane->propagateMatrix()), water);
-		*/
-
+ 		*/
 		glfwSwapBuffers(renderer->getWindow());
 		glfwPollEvents();
 	}

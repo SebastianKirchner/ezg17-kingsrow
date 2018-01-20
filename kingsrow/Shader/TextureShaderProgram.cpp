@@ -41,6 +41,6 @@ void TextureShaderProgram::fillUniformLocation(LightShaft * lightShaft, LightNod
 {
 }
 
-void TextureShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, GLuint reflectionTexture, GLuint refractionTexture)
+void TextureShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelViewProjectionMatrix, Water* water)
 {
 }
