@@ -30,7 +30,7 @@ void PlayerNode::update(double deltaTime, InputHandler* input)
 	
 	//std::cerr << "view matrix: " << glm::lookAt(position, right, up) << std::endl;
 	//std::cerr << "model Matrix: " << propagateMatrix() << std::endl;
-
+	
 	if (input->w)
 		position += glm::normalize(glm::vec3(direction.x, direction.y, direction.z)) * (float)deltaTime * speed;
 	if (input->s)
@@ -40,7 +40,7 @@ void PlayerNode::update(double deltaTime, InputHandler* input)
 	if (input->d)
 		position += right * (float)deltaTime * speed;
 
-
+	position.y = 0;
 
 	//prevent camera from flipping
 	if (direction.y > 0.9 && (oldMousePosY - input->yPos) > 0 || direction.y < -0.9 && oldMousePosY - input->yPos < 0)
