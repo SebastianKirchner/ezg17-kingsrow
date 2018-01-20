@@ -69,11 +69,13 @@ void Water::initRefraction()
 void Water::reflectionPass()
 {
 	this->bindFBO(reflectionFBO, REFL_WIDTH, REFL_HEIGHT);
+	//glClearColor(1, 0, 0, 1);
 }
 
 void Water::refractionPass()
 {
 	this->bindFBO(refractionFBO, REFR_WIDTH, REFR_HEIGHT);
+	//glClearColor(0, 1, 0, 1);
 }
 
 void Water::bindFBO(GLuint fbo, int width, int height)
@@ -82,6 +84,7 @@ void Water::bindFBO(GLuint fbo, int width, int height)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	glViewport(0, 0, width, height);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 Water::~Water()
