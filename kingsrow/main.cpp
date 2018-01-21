@@ -227,73 +227,73 @@ int main() {
 		0, 0, -0.4, 0,
 		0, 0.4, 0, 0,
 		0.4, 0, 0, 0,
-		9, -0.95, 0, 1));
+		9, 0, 0, 1));
 
 	SceneNode* transformNodeBridge = new TransformNode(generateUuid(), glm::mat4(
-		1.5, 0, 0, 0,
+		2.1, 0, 0, 0,
 		0, 1.2, 0, 0,
 		0, 0, 1, 0,
-		19, -1, 0, 1));
+		18.5, 0, 0, 1));
 	SceneNode* transformNodeTree = new TransformNode(generateUuid(), glm::mat4(
 		0.4, 0, 0, 0,
 		0, 0.4, 0, 0,
 		0, 0, 0.4, 0,
-		-5, -1, -4.5, 1));
+		-5, 0, -4.5, 1));
 	SceneNode* transformNodeTree2 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, -0.2, 0,
 		0, 0.7, 0, 0,
 		0.2, 0, 0.7, 0,
-		-5, -1, 4.5, 1));
+		-5, 0, 4.5, 1));
 	SceneNode* transformNodeTree3 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0, 0,
 		0, 0.7, 0, 0,
 		0, 0, 0.7, 0,
-		-2, -1, -4.5, 1));
+		-2, 0, -4.5, 1));
 	SceneNode* transformNodeTree4 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0, 0,
 		0, 0.5, 0, 0,
 		0, 0, 0.7, 0,
-		-2, -1, 4.5, 1));
+		-2, 0, 4.5, 1));
 	SceneNode* transformNodeTree5 = new TransformNode(generateUuid(), glm::mat4(
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
-		1, -1, -4.5, 1));
+		1, 0, -4.5, 1));
 	SceneNode* transformNodeTree6 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, -0.6, 0,
 		0, 0.7, 0, 0,
 		0.6, 0, 0.7, 0,
-		1, -1, 4.5, 1));
+		1, 0, 4.5, 1));
 	SceneNode* transformNodeTree7 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0.3, 0,
 		0, 0.7, 0, 0,
 		-0.3, 0, 0.7, 0,
-		4, -1, -4.5, 1));
+		4, 0, -4.5, 1));
 	SceneNode* transformNodeTree8 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0, 0,
 		0, 0.7, 0, 0,
 		0, 0, 0.7, 0,
-		4, -1, 4.5, 1));
+		4, 0, 4.5, 1));
 	SceneNode* transformNodeTree9 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 0.7, 0,
-		7, -1, -4.5, 1));
+		7, 0, -4.5, 1));
 	SceneNode* transformNodeTree10 = new TransformNode(generateUuid(), glm::mat4(
 		0.5, 0, 0, 0,
 		0, 0.5, 0, 0,
 		0, 0, 0.5, 0,
-		7, -1, 4.5, 1));
+		7, 0, 4.5, 1));
 	SceneNode* transformNodeTree11 = new TransformNode(generateUuid(), glm::mat4(
 		0.7, 0, -0.3, 0,
 		0, 0.7, 0, 0,
 		0.3, 0, 0.7, 0,
-		10, -1, -4.5, 1));
+		10, 0, -4.5, 1));
 	SceneNode* transformNodeTree12 = new TransformNode(generateUuid(), glm::mat4(
 		1.2, 0, 0, 0,
 		0, 1.2, 0, 0,
 		0, 0, 1.2, 0,
-		10, -1, 4.5, 1));
+		10, 0, 4.5, 1));
 	//SceneNode* transformNodeMoon = new TransformNode(generateUuid(), glm::mat4(
 	//	0.7, 0, 0.6, 0,
 	//	0, 0.7, 0, 0,
@@ -304,58 +304,58 @@ int main() {
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		-5, -1, -2.5, 1));
+		-5, 0, -2.5, 1));
 	SceneNode* streetLampNode2 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		-5, -1, 2.5, 1));
+		-5, 0, 2.5, 1));
 	SceneNode* streetLampNode3 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		-2, -1, -2.5, 1));
+		-2, 0, -2.5, 1));
 	SceneNode* streetLampNode4 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		-2, -1, 2.5, 1));
+		-2, 0, 2.5, 1));
 	SceneNode* streetLampNode5 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		1, -1, -2.5, 1));
+		1, 0, -2.5, 1));
 	SceneNode* streetLampNode6 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		1, -1, 2.5, 1));
+		1, 0, 2.5, 1));
 	SceneNode* streetLampNode7 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		4, -1, 2.5, 1));
+		4, 0, 2.5, 1));
 	SceneNode* streetLampNode8 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		4, -1, -2.5, 1));
+		4, 0, -2.5, 1));
 	SceneNode* streetLampNode9 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, -0.3, 0,
 		0, 0.6, 0, 0,
 		0.3, 0, 0, 0,
-		7, -1, 2.5, 1));
+		7, 0, 2.5, 1));
 	SceneNode* streetLampNode10 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
 		0, 0.6, 0, 0,
 		-0.3, 0, 0, 0,
-		7, -1, -2.5, 1));
+		7, 0, -2.5, 1));
 
 	SceneNode* planeNode = new TransformNode(generateUuid(), glm::mat4(
-		10.0, 0, 0, 0,
-		0, 10.0, 0, 0,
-		0.0, 0, 10.0, 0,
-		1, 0, 1, 1));
+		2, 0, 0, 0,
+		0, 2.0, 0, 0,
+		0.0, 0, 2.0, 0,
+		19, 0, 1, 1));
 	
 
 	planeNode->attachChild(plane);
@@ -444,7 +444,7 @@ int main() {
 	glm::vec3 playerPosition;
 
 	LightShaft* lightShaft = new LightShaft(MeshLoadInfo::LIGHTSHAFT, viewPortResX, viewPortResY);
-	Water* water = new Water(viewPortResX, viewPortResY);
+	Water* water = new Water(viewPortResX, viewPortResY, 0.01f, 0.02f);
 
 	//std::ofstream myFile;
 	//myFile.open("C:/Users/rebeb/Documents/TU Wien/17WS/Echtzeitgraphik/directions.txt");
@@ -509,7 +509,7 @@ int main() {
 
 		projectionMatrix = activeCamera->getProjectionMatrix();
 		viewMatrix = activeCamera->getViewMatrix();
-		invertedViewMatrix = activeCamera->getInvertedViewMatrix(-1.0f);
+		invertedViewMatrix = player->getInvertedViewMatrix(-1.0f);
 		viewProjectionMatrix = projectionMatrix * viewMatrix;
 		playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 
@@ -550,6 +550,7 @@ int main() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, viewPortResX, viewPortResY);
 
+		water->updateWaves(deltaTime);
 		renderer->drawWater(plane, viewProjectionMatrix * glm::mat4(plane->propagateMatrix()), water);
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------

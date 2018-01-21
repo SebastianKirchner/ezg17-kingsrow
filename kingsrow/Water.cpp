@@ -1,19 +1,14 @@
 #include "Water.h"
 
-///< Vertex coordinates of final scene (quad filling whole screen)
-GLfloat quad[12] =
-{
-	-1.0f, -1.0f, -1.0f,
-	1.0f, 1.0f, -1.0f,
-	1.0f, -1.0f, -1.0f,
-	1.0f, 1.0f, 1.0f
-};
-
-Water::Water(int width, int height)
+Water::Water(int width, int height, float amplitude, float speed)
 {
 	this->width = width;
 	this->height = height;
+	this->amplitude = amplitude;
+	this->speed = speed;
 
+	std::string dudvMapPath = "../kingsrow/Assets/Models/textures/waterDistortionDuDv.png";
+	dudvMap = new Texture((dudvMapPath).c_str());
 	initReflection();
 	initRefraction();
 }
@@ -137,4 +132,25 @@ GLuint Water::getReflectionFBO()
 GLuint Water::getRefractionFBO()
 {
 	return refractionFBO;
+}
+
+Texture* Water::getDuDvMap() {
+	return dudvMap;
+}
+
+float Water::getAmplitude() {
+	return amplitude;
+}
+
+float Water::getSpeed() {
+	return speed;
+}
+
+void Water::updateWaves(float delta) {
+	timed += speed + delta;
+	timed = std::fmod(timed, 1.0f);
+}
+
+float Water::getTimed() {
+	return timed;
 }

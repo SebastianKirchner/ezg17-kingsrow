@@ -7,7 +7,7 @@
 class Water
 {
 public:
-	Water(int width, int height);
+	Water(int width, int height, float amplitude, float speed);
 	~Water();
 
 	void reflectionPass();
@@ -15,14 +15,28 @@ public:
 
 	GLuint getReflectionTexture();
 	GLuint getRefractionTexture();
+	Texture* getDuDvMap();
 
 	GLuint getReflectionFBO();
 	GLuint getRefractionFBO();
+
+	float getAmplitude();
+	float getSpeed();
+	float getTimed();
+
+	void updateWaves(float delta);
+
 private:
 
 	int width;
 	int height;
 	int samples;
+
+	float amplitude;
+	float timed;
+	float speed;
+
+	Texture* dudvMap;
 
 	static const int REFL_WIDTH = 1280;
 	static const int REFL_HEIGHT = 720;

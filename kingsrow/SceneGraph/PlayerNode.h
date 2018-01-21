@@ -18,6 +18,7 @@ public:
 
 	glm::vec3 getPosition();
 
+	glm::mat4 getInvertedViewMatrix(float height);
 private:
 	
 	CameraNode* playerCamera;

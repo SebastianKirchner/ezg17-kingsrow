@@ -18,5 +18,9 @@ private:
 	GLuint locationMVP;
 	GLuint locationReflectionTexture;
 	GLuint locationRefractionTexture;
+	GLuint locationDudvMap;
+	
+	GLuint locationAmplitude;
+	GLuint locationSpeed;
 };
 

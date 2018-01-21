@@ -46,13 +46,3 @@ glm::vec3 CameraNode::getPosition()
 {
 	return position;
 }
-
-glm::mat4 CameraNode::getInvertedViewMatrix(float height)
-{
-	float distance = 2.0f * (position.y - height);
-	glm::vec3 invertedPosition = position;
-	invertedPosition.y -= distance;
-
-	glm::vec3 invertedDirection = glm::reflect(direction, glm::vec3(0, 1, 0));
-	return glm::lookAt(invertedPosition, invertedPosition + invertedDirection, up);
-}

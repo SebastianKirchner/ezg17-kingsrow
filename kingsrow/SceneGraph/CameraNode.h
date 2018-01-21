@@ -17,7 +17,6 @@ public:
 	virtual void update(double timeStep, InputHandler* input);
 		
 	glm::mat4 getViewMatrix();
-	glm::mat4 getInvertedViewMatrix(float height);
 	glm::mat4 getProjectionMatrix();
 	glm::vec3 getPosition();
 

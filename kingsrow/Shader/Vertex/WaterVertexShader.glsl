@@ -11,10 +11,13 @@ uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 
 out vec4 clipSpace;
+out vec2 texCoords;
 
 void main()
 {
 	clipSpace = MVP * vec4(position.x, position.y, position.z, 1.0);
 	gl_Position = clipSpace;
+	texCoords = vec2(position.x/2.0 + 0.5, position.y/2.0 + 0.5) * 6;
+	
 } 
 
