@@ -136,6 +136,19 @@ void Renderer::draw(MeshNode* node, bool drawOcclusion)
 	glUseProgram(0);
 }
 
+void Renderer::drawWater(MeshNode* node, glm::mat4 modelViewProjectionMatrix, Water* water)
+{
+	ShaderProgram* shaderProgram = node->getShaderProgram();
+	glUseProgram(shaderProgram->getShaderId());
+	shaderProgram->fillUniformLocation(node, modelViewProjectionMatrix, water);
+	
+    bindVertexArray(node->getVao());
+	glDrawElements(GL_TRIANGLES, node->getDrawSize(), GL_UNSIGNED_INT, (void*)0);
+	bindVertexArray(0);
+	glUseProgram(0);
+
+}
+
 void Renderer::drawLightMarker(MeshNode* node, LightNode * lightShaftLight)
 {
 	this->useShader(node, lightShaftLight);
@@ -143,18 +156,6 @@ void Renderer::drawLightMarker(MeshNode* node, LightNode * lightShaftLight)
 	glDrawArrays(GL_POINTS, 0, 1);
 	glBindVertexArray(0);
 	glUseProgram(0);
-}
-
-void Renderer::drawWater(MeshNode* node, glm::mat4 modelViewProjectionMatrix, Water* water)
-{
-	ShaderProgram* shaderProgram = node->getShaderProgram();
-	glUseProgram(shaderProgram->getShaderId());
-	shaderProgram->fillUniformLocation(node, modelViewProjectionMatrix, water);
-	bindVertexArray(node->getVao());
-	glDrawElements(GL_TRIANGLES, node->getDrawSize(), GL_UNSIGNED_INT, (void*)0);
-	bindVertexArray(0);
-	glUseProgram(0);
-
 }
 
 void Renderer::linkShader(ShaderProgram* shader)

@@ -133,7 +133,7 @@ int main() {
 	MeshNode* streetLamp8 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp9 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp10 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
-	MeshNode* moonMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::MOON);
+	//MeshNode* moonMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::MOON);
 	MeshNode* plane = MeshImporter::getInstance()->getMesh(MeshLoadInfo::PLANE);
 	
 	bridgeMesh->prepareForRendering();
@@ -160,11 +160,10 @@ int main() {
 	streetLamp8->prepareForRendering();
 	streetLamp9->prepareForRendering();
 	streetLamp10->prepareForRendering();
-	moonMesh->prepareForRendering();
+	//moonMesh->prepareForRendering();
 	plane->prepareForRendering();
 
 	std::vector<MeshNode*> drawArray;
-	std::vector<MeshNode*> occlusionDrawArray;
 	drawArray.push_back(bridgeMesh);
 	drawArray.push_back(groundMesh);
 	drawArray.push_back(treeMesh1);
@@ -189,32 +188,7 @@ int main() {
 	drawArray.push_back(streetLamp8);
 	drawArray.push_back(streetLamp9);
 	drawArray.push_back(streetLamp10);
-	drawArray.push_back(moonMesh);
-
-	occlusionDrawArray.push_back(bridgeMesh);
-	occlusionDrawArray.push_back(groundMesh);
-	occlusionDrawArray.push_back(treeMesh1);
-	occlusionDrawArray.push_back(treeMesh2);
-	occlusionDrawArray.push_back(treeMesh3);
-	occlusionDrawArray.push_back(treeMesh4);
-	occlusionDrawArray.push_back(treeMesh5);
-	occlusionDrawArray.push_back(treeMesh6);
-	occlusionDrawArray.push_back(treeMesh7);
-	occlusionDrawArray.push_back(treeMesh8);
-	occlusionDrawArray.push_back(treeMesh9);
-	occlusionDrawArray.push_back(treeMesh10);
-	occlusionDrawArray.push_back(treeMesh11);
-	occlusionDrawArray.push_back(treeMesh12);
-	occlusionDrawArray.push_back(streetLamp1);
-	occlusionDrawArray.push_back(streetLamp2);
-	occlusionDrawArray.push_back(streetLamp3);
-	occlusionDrawArray.push_back(streetLamp4);
-	occlusionDrawArray.push_back(streetLamp5);
-	occlusionDrawArray.push_back(streetLamp6);
-	occlusionDrawArray.push_back(streetLamp7);
-	occlusionDrawArray.push_back(streetLamp8);
-	occlusionDrawArray.push_back(streetLamp9);
-	occlusionDrawArray.push_back(streetLamp10);
+	//drawArray.push_back(moonMesh);
 
 	
 	SceneNode* sceneGraph = new SceneNode(generateUuid(), NodeType::ROOT_NODE);
@@ -291,11 +265,11 @@ int main() {
 		0, 1.2, 0, 0,
 		0, 0, 1.2, 0,
 		10, 0, 4.5, 1));
-	SceneNode* transformNodeMoon = new TransformNode(generateUuid(), glm::mat4(
-		0.7, 0, 0.6, 0,
-		0, 0.7, 0, 0,
-		-0.6, 0, 0.7, 0,
-		0, 8, 10, 1));
+	//SceneNode* transformNodeMoon = new TransformNode(generateUuid(), glm::mat4(
+	//	0.7, 0, 0.6, 0,
+	//	0, 0.7, 0, 0,
+	//	-0.6, 0, 0.7, 0,
+	//	0, 8, 10, 1));
 
 	SceneNode* streetLampNode1 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
@@ -371,7 +345,7 @@ int main() {
 	transformNodeTree10->attachChild(treeMesh10);
 	transformNodeTree11->attachChild(treeMesh11);
 	transformNodeTree12->attachChild(treeMesh12);
-	transformNodeMoon->attachChild(moonMesh);
+	//transformNodeMoon->attachChild(moonMesh);
 	streetLampNode1->attachChild(streetLamp1);
 	streetLampNode2->attachChild(streetLamp2);
 	streetLampNode3->attachChild(streetLamp3);
@@ -396,7 +370,7 @@ int main() {
 	sceneGraph->attachChild(transformNodeTree10);
 	sceneGraph->attachChild(transformNodeTree11);
 	sceneGraph->attachChild(transformNodeTree12);
-	sceneGraph->attachChild(transformNodeMoon);
+	//sceneGraph->attachChild(transformNodeMoon);
 
 	sceneGraph->attachChild(streetLampNode1);
 	sceneGraph->attachChild(streetLampNode2);
@@ -534,12 +508,23 @@ int main() {
 
 		water->updateWaves(deltaTime);
 		// normal drawing pass
-		renderer->drawWater(plane, viewProjectionMatrix * glm::mat4(plane->propagateMatrix()), water);
+		lightShaft->normalDrawingPass();
+		
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
 			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 0), false);
 		}
+		renderer->drawWater(plane, viewProjectionMatrix * glm::mat4(plane->propagateMatrix()), water);
 
+		lightShaft->occlusionDrawingPass(lights.at(0));
+
+		renderer->drawLightMarker(drawArray.at(0), lights.at(0));
+		for (MeshNode* node : drawArray) {
+			//-------------draw-------------------
+			renderer->draw(node, true);
+		}
+		//compose
+		lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
 
 		/*
 		 * LIGHT SHAFT PASSES
