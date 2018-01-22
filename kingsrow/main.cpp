@@ -74,10 +74,7 @@ int main() {
 
 
 	std::vector<LightNode*> lights1;
-	//room 1
-	
 
-	//LightNode* light = new PointLightNode(generateUuid(), glm::vec3(-5, 2.8, -3.7), 1.0, glm::vec3(1, 1, 1));
 	LightNode* light = new PointLightNode(generateUuid(), glm::vec3(0, 8, 10), 1.0, glm::vec3(1, 1, 1));
 	
 	LightNode* lightSpot1 = new SpotLightNode(generateUuid(), glm::vec3(-5, 2.3, -1.5), 1.f, glm::vec3(1, 1, 1), glm::vec3(0, -1, 0), glm::vec2(10, 9));
@@ -136,7 +133,7 @@ int main() {
 	MeshNode* streetLamp8 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp9 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
 	MeshNode* streetLamp10 = MeshImporter::getInstance()->getMesh(MeshLoadInfo::STREET_LAMP);
-	//MeshNode* moonMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::MOON);
+	MeshNode* moonMesh = MeshImporter::getInstance()->getMesh(MeshLoadInfo::MOON);
 	MeshNode* plane = MeshImporter::getInstance()->getMesh(MeshLoadInfo::PLANE);
 	
 	bridgeMesh->prepareForRendering();
@@ -163,7 +160,7 @@ int main() {
 	streetLamp8->prepareForRendering();
 	streetLamp9->prepareForRendering();
 	streetLamp10->prepareForRendering();
-	//moonMesh->prepareForRendering();
+	moonMesh->prepareForRendering();
 	plane->prepareForRendering();
 
 	std::vector<MeshNode*> drawArray;
@@ -192,7 +189,7 @@ int main() {
 	drawArray.push_back(streetLamp8);
 	drawArray.push_back(streetLamp9);
 	drawArray.push_back(streetLamp10);
-	//drawArray.push_back(moonMesh);
+	drawArray.push_back(moonMesh);
 
 	occlusionDrawArray.push_back(bridgeMesh);
 	occlusionDrawArray.push_back(groundMesh);
@@ -294,11 +291,11 @@ int main() {
 		0, 1.2, 0, 0,
 		0, 0, 1.2, 0,
 		10, 0, 4.5, 1));
-	//SceneNode* transformNodeMoon = new TransformNode(generateUuid(), glm::mat4(
-	//	0.7, 0, 0.6, 0,
-	//	0, 0.7, 0, 0,
-	//	-0.6, 0, 0.7, 0,
-	//	0, 0, 0, 1));
+	SceneNode* transformNodeMoon = new TransformNode(generateUuid(), glm::mat4(
+		0.7, 0, 0.6, 0,
+		0, 0.7, 0, 0,
+		-0.6, 0, 0.7, 0,
+		0, 8, 10, 1));
 
 	SceneNode* streetLampNode1 = new TransformNode(generateUuid(), glm::mat4(
 		0, 0, 0.3, 0,
@@ -374,7 +371,7 @@ int main() {
 	transformNodeTree10->attachChild(treeMesh10);
 	transformNodeTree11->attachChild(treeMesh11);
 	transformNodeTree12->attachChild(treeMesh12);
-	//transformNodeMoon->attachChild(moonMesh);
+	transformNodeMoon->attachChild(moonMesh);
 	streetLampNode1->attachChild(streetLamp1);
 	streetLampNode2->attachChild(streetLamp2);
 	streetLampNode3->attachChild(streetLamp3);
@@ -399,7 +396,7 @@ int main() {
 	sceneGraph->attachChild(transformNodeTree10);
 	sceneGraph->attachChild(transformNodeTree11);
 	sceneGraph->attachChild(transformNodeTree12);
-	//sceneGraph->attachChild(transformNodeMoon);
+	sceneGraph->attachChild(transformNodeMoon);
 
 	sceneGraph->attachChild(streetLampNode1);
 	sceneGraph->attachChild(streetLampNode2);
@@ -514,24 +511,9 @@ int main() {
 		playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 
 		/*
-		* WATER PASSES
-		*/
-		glEnable(GL_CLIP_DISTANCE0);
-
-		//lightShaft->occlusionDrawingPass(lights.at(0));
-		//
-		//renderer->drawLightMarker(drawArray.at(0), lights.at(0));
-		//for (MeshNode* node : drawArray) {
-		//	//-------------draw-------------------
-		//	renderer->draw(node, true);
-		//}
-		////compose
-		//lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
-		//
-		///*
-		// * WATER PASSES
-		// */
- 	//	glEnable(GL_CLIP_DISTANCE0);
+		 * WATER PASSES
+		 */
+ 		glEnable(GL_CLIP_DISTANCE0);
 		 
 
 		water->reflectionPass();
@@ -551,6 +533,7 @@ int main() {
 		glViewport(0, 0, viewPortResX, viewPortResY);
 
 		water->updateWaves(deltaTime);
+		// normal drawing pass
 		renderer->drawWater(plane, viewProjectionMatrix * glm::mat4(plane->propagateMatrix()), water);
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
@@ -560,8 +543,10 @@ int main() {
 
 		/*
 		 * LIGHT SHAFT PASSES
-		 *
+		 
 		 lightShaft->normalDrawingPass();
+		 
+
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
 			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(),  glm::vec4(0, 1, 0, 0), false);
@@ -576,7 +561,7 @@ int main() {
 		}
 		//compose
 		lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
- 		*/
+		*/
 		glfwSwapBuffers(renderer->getWindow());
 		glfwPollEvents();
 	}
