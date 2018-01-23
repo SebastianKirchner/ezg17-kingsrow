@@ -2,8 +2,7 @@
 
 in vec4 clipSpace;
 in vec2 texCoords;
-in vec3 camDirection;
-in vec3 lightRayVec;
+in vec3 P;
 
 out vec4 out_color;
 
@@ -15,40 +14,44 @@ uniform sampler2D normalMap;
 
 uniform float amplitude;
 uniform float speed;
+uniform vec3 cameraPos;
+uniform vec3 lightPos;
 
 void main()
 {
 
+    vec3 lightDir = normalize(P - lightPos.xyz);
+    vec3 viewDir = normalize(cameraPos.xyz - P);
+	
 	vec3 lightColor = vec3(1.0,1.0,1.0);
 	vec2 ndc = (clipSpace.xy/clipSpace.w)/2.0 + 0.5;
 	vec2 refractTexCoords = vec2(ndc.x, ndc.y);
 	vec2 reflectTexCoords = vec2(ndc.x, -ndc.y);
 
-	vec2 dist = texture(dudvMap, vec2(texCoords.x + speed, texCoords.y)).rg*0.1;
+	vec2 dist = texture(dudvMap, vec2(texCoords.x + speed, texCoords.y)).rg*0.001;
 	dist = texCoords + vec2(dist.x, dist.y + speed);
-	vec2 totalDist = (texture(dudvMap, dist).rg * 2.0 -1.0) * 0.02;
+	vec2 totalDist = (texture(dudvMap, dist).rg * 2.0 -1.0) * 0.005;
 
 	reflectTexCoords += totalDist;
 	refractTexCoords += totalDist;
 	
-	reflectTexCoords.x = clamp(reflectTexCoords.x, 0.01, 0.99);
-	reflectTexCoords.y = clamp(reflectTexCoords.y, -0.99, -0.01);
+	reflectTexCoords.x = clamp(reflectTexCoords.x, 0.001, 0.999);
+	reflectTexCoords.y = clamp(reflectTexCoords.y, -0.999, -0.001);
     
-	refractTexCoords = clamp(refractTexCoords, 0.01, 0.99);
+	refractTexCoords = clamp(refractTexCoords, 0.001, 0.999);
 
 	vec4 reflectCol = texture(reflectionTexture, reflectTexCoords);
 	vec4 blue = vec4(0,0,0.2,0.3);
 	vec4 refractCol = texture(refractionTexture, refractTexCoords);
 
-	vec3 view = normalize(camDirection);
-	float refractFactor = dot(view, vec3(0.0,1.0,0.0));
+	float refractFactor = max(dot(viewDir, vec3(0,1,0)), 0);
 
 	vec4 normalMapCol = texture(normalMap, dist);
 	vec3 normal = vec3(normalMapCol.r *2.0 - 1.0, normalMapCol.b, normalMapCol.g * 2.0 -1.0);
 	normal = normalize(normal);
 
-	vec3 reflectLight = reflect(normalize(lightRayVec), normal);
-	float specular = max(dot(reflectLight, view), 0.0);
+	vec3 reflectLight = reflect(normalize(lightDir), normal);
+	float specular = max(dot(reflectLight, viewDir), 0.0);
 	specular = pow(specular, 20);
 	vec3 highlights = lightColor * specular * 0.6;
 

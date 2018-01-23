@@ -72,8 +72,4 @@ void WaterShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelView
 	
 	glm::vec3 lightPosition = water->getLightPosition();
 	glUniform3f(locationLightPosition, lightPosition.x, lightPosition.y, lightPosition.z);
-	
-	cameraPosition = glm::normalize(cameraPosition);
-	glm::vec4 inModel = glm::normalize(glm::mat4(node->getModelMatrix()) * glm::vec4(cameraPosition, 1.0));
-	printf("(%f, %f, %f)\n", inModel.x, inModel.y, inModel.z);
 }
