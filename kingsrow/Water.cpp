@@ -7,8 +7,10 @@ Water::Water(int width, int height, float amplitude, float speed)
 	this->amplitude = amplitude;
 	this->speed = speed;
 
-	std::string dudvMapPath = "../kingsrow/Assets/Models/textures/waterDistortionDuDv.png";
+	std::string dudvMapPath = "../kingsrow/Assets/Models/textures/waterDuDv.png";
+	std::string normalMapPath = "../kingsrow/Assets/Models/textures/waterNormal.png";
 	dudvMap = new Texture((dudvMapPath).c_str());
+	normalMap = new Texture((normalMapPath).c_str());
 	initReflection();
 	initRefraction();
 }
@@ -138,6 +140,10 @@ Texture* Water::getDuDvMap() {
 	return dudvMap;
 }
 
+Texture* Water::getNormalMap() {
+	return normalMap;
+}
+
 float Water::getAmplitude() {
 	return amplitude;
 }
@@ -153,4 +159,24 @@ void Water::updateWaves(float delta) {
 
 float Water::getTimed() {
 	return timed;
+}
+
+glm::vec3 Water::getCameraPosition() 
+{
+	return cameraPosition;
+}
+
+void Water::setCameraPosition(glm::vec3 cameraPosition)
+{
+	this->cameraPosition = cameraPosition;
+}
+
+glm::vec3 Water::getLightPosition()
+{
+	return lightPosition;
+}
+
+void Water::setLightPosition(glm::vec3 lightPosition)
+{
+	this->lightPosition = lightPosition;
 }

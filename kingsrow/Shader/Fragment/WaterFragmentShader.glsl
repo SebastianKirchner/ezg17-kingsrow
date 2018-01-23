@@ -2,6 +2,8 @@
 
 in vec4 clipSpace;
 in vec2 texCoords;
+in vec3 camDirection;
+in vec3 lightRayVec;
 
 out vec4 out_color;
 
@@ -9,19 +11,22 @@ out vec4 out_color;
 uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 uniform sampler2D dudvMap;
+uniform sampler2D normalMap;
 
 uniform float amplitude;
 uniform float speed;
 
 void main()
 {
+
+	vec3 lightColor = vec3(1.0,1.0,1.0);
 	vec2 ndc = (clipSpace.xy/clipSpace.w)/2.0 + 0.5;
 	vec2 refractTexCoords = vec2(ndc.x, ndc.y);
 	vec2 reflectTexCoords = vec2(ndc.x, -ndc.y);
 
-	vec2 dist1 = (texture(dudvMap, vec2(texCoords.x, texCoords.y+speed)).rg * 2.0 -1.0) * 0.009f;
-	vec2 dist2 = (texture(dudvMap, vec2(-texCoords.x + speed, texCoords.y)).rg * 2.0 -1.0) * 0.009f;
-	vec2 totalDist = dist1+dist2;
+	vec2 dist = texture(dudvMap, vec2(texCoords.x + speed, texCoords.y)).rg*0.1;
+	dist = texCoords + vec2(dist.x, dist.y + speed);
+	vec2 totalDist = (texture(dudvMap, dist).rg * 2.0 -1.0) * 0.02;
 
 	reflectTexCoords += totalDist;
 	refractTexCoords += totalDist;
@@ -35,7 +40,19 @@ void main()
 	vec4 blue = vec4(0,0,0.2,0.3);
 	vec4 refractCol = texture(refractionTexture, refractTexCoords);
 
-    out_color = mix(reflectCol, refractCol, 0.5);
-	out_color = mix(out_color, blue, 0.1);
+	vec3 view = normalize(camDirection);
+	float refractFactor = dot(view, vec3(0.0,1.0,0.0));
+
+	vec4 normalMapCol = texture(normalMap, dist);
+	vec3 normal = vec3(normalMapCol.r *2.0 - 1.0, normalMapCol.b, normalMapCol.g * 2.0 -1.0);
+	normal = normalize(normal);
+
+	vec3 reflectLight = reflect(normalize(lightRayVec), normal);
+	float specular = max(dot(reflectLight, view), 0.0);
+	specular = pow(specular, 20);
+	vec3 highlights = lightColor * specular * 0.6;
+
+    out_color = mix(reflectCol, refractCol, 0.5) + vec4(highlights, 0.0);
+	//out_color = mix(out_color, blue, 0.1);
 } 
 

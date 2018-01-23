@@ -16,9 +16,12 @@ public:
 
 private:
 	GLuint locationMVP;
+	GLuint locationM;
 	GLuint locationReflectionTexture;
 	GLuint locationRefractionTexture;
 	GLuint locationDudvMap;
+	GLuint locationNormalMap;
+	GLuint locationLightPosition;
 	
 	GLuint locationAmplitude;
 	GLuint locationSpeed;

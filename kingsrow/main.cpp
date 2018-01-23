@@ -324,8 +324,8 @@ int main() {
 
 	SceneNode* planeNode = new TransformNode(generateUuid(), glm::mat4(
 		2, 0, 0, 0,
-		0, 2.0, 0, 0,
-		0.0, 0, 2.0, 0,
+		0, 2, 0, 0,
+		0, 0, 2, 0,
 		19, 0, 1, 1));
 	
 
@@ -489,7 +489,8 @@ int main() {
 		 */
  		glEnable(GL_CLIP_DISTANCE0);
 		 
-
+		water->setCameraPosition(player->getPosition());
+		water->setLightPosition(lights.at(0)->getPosition());
 		water->reflectionPass();
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
@@ -526,27 +527,6 @@ int main() {
 		//compose
 		lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
 
-		/*
-		 * LIGHT SHAFT PASSES
-		 
-		 lightShaft->normalDrawingPass();
-		 
-
-		for (MeshNode* node : drawArray) {
-			//-------------draw-------------------
-			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(),  glm::vec4(0, 1, 0, 0), false);
-		}
-
-		lightShaft->occlusionDrawingPass(lights.at(0));
-		
-		renderer->drawLightMarker(drawArray.at(0), lights.at(0));
-		for (MeshNode* node : occlusionDrawArray) {
-			//-------------draw-------------------
-			renderer->draw(node, true);
-		}
-		//compose
-		lightShaft->composingDrawingPass(viewProjectionMatrix, lights.at(0));
-		*/
 		glfwSwapBuffers(renderer->getWindow());
 		glfwPollEvents();
 	}

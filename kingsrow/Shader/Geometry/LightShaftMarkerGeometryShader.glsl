@@ -8,6 +8,7 @@ uniform mat4 viewProjectionMatrix;
 uniform vec2 scale;
 
 in vec4 geomPosition[1];
+in vec3 camDirection;
 
 const float PI02 = 0.3141593;
 

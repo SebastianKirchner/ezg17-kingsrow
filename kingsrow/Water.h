@@ -16,6 +16,7 @@ public:
 	GLuint getReflectionTexture();
 	GLuint getRefractionTexture();
 	Texture* getDuDvMap();
+	Texture* getNormalMap();
 
 	GLuint getReflectionFBO();
 	GLuint getRefractionFBO();
@@ -23,6 +24,12 @@ public:
 	float getAmplitude();
 	float getSpeed();
 	float getTimed();
+	
+	glm::vec3 getCameraPosition(); 
+	void setCameraPosition(glm::vec3 cameraPosition);
+
+	glm::vec3 getLightPosition();
+	void setLightPosition(glm::vec3 lightPosition);
 
 	void updateWaves(float delta);
 
@@ -37,7 +44,9 @@ private:
 	float speed;
 
 	Texture* dudvMap;
-
+	Texture* normalMap;
+	glm::vec3 cameraPosition;
+	glm::vec3 lightPosition;
 	static const int REFL_WIDTH = 1280;
 	static const int REFL_HEIGHT = 720;
 	static const int REFR_WIDTH = 1280;
