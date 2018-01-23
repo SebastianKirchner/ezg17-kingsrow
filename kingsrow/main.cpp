@@ -51,8 +51,8 @@ const std::vector<std::string> explode(const std::string& s, const char& c)
 int main() {
 
 	//Update the values also in LightNode, in case these values change
-	int viewPortResX = 1920;
-	int viewPortResY = 1080;
+	int viewPortResX = 640;
+	int viewPortResY = 480;
 	Renderer* renderer = Renderer::getInstance();
 	if (renderer->init(viewPortResX, viewPortResY) == -1) {
 		return -1;
@@ -418,10 +418,11 @@ int main() {
 	Water* water = new Water(viewPortResX, viewPortResY, 0.01f, 0.02f);
 
 	//std::ofstream myFile;
-	//myFile.open("C:/Users/rebeb/Documents/TU Wien/17WS/Echtzeitgraphik/directions.txt");
-	//std::ifstream directionFile("../kingsrow/Assets/CameraMov/directions.txt");
+	//myFile.open("../kingsrow/Assets/CameraMov/directions.txt");
+	std::ifstream directionFile("../kingsrow/Assets/CameraMov/directions.txt");
 	std::string currentDirectionInputLine;
 	//gameloop
+	glfwSetCursorPos(renderer->getWindow(), 0, 0);
 	while (!input->esc && glfwWindowShouldClose(renderer->getWindow()) == 0) {
 		//we do not need this, since we have automatic camera movement
 		input->update(renderer->getWindow());
@@ -433,9 +434,10 @@ int main() {
 		while (deltaTime > timeStep)
 		{
 			deltaTime -= timeStep;
-			sceneGraph->update(timeStep, input);
-			/*
+			//sceneGraph->update(timeStep, input);
 			//myFile << input->w << " " << input->a << " " << input->s << " " << input->d << " " << input->xPos << " " << input->yPos << "\n";
+
+			
 			if (std::getline(directionFile, currentDirectionInputLine)) {
 				//w a s d x y\n
 				std::vector<std::string> directionComp = explode(currentDirectionInputLine, ' ');
@@ -471,7 +473,7 @@ int main() {
 			}
 			else {
 				input->esc = true;
-			}*/
+			}
 		}
 		
 		oldTime = time - deltaTime;
@@ -531,7 +533,7 @@ int main() {
 		glfwPollEvents();
 	}
 	//myFile.close();
-	//directionFile.close();
+	directionFile.close();
 	glfwTerminate();
 
 	return 0;
