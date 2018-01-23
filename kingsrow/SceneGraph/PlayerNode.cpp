@@ -7,8 +7,8 @@ PlayerNode::PlayerNode(int uuid) : SceneNode(uuid, NodeType::PLAYER_NODE)
 	up = glm::vec3(0, 1, 0);
 	right = glm::vec3(1, 0, 0);
 	direction = glm::vec3(0, 0, 1);
-	oldMousePosX = 960;
-	oldMousePosY = 540;
+	oldMousePosX = 0;
+	oldMousePosY = 0;
 }
 
 
@@ -24,7 +24,6 @@ glm::highp_mat4 PlayerNode::propagateMatrix()
 
 void PlayerNode::update(double deltaTime, InputHandler* input)
 {
-	glm::vec3 disp(0.f, 0.f, 0.f);
 	//if (input->r)
 	//	controller->setPosition(physx::PxExtendedVec3(0, 50, 0));
 	
