@@ -22,5 +22,6 @@ private:
 	
 	GLuint locationAmplitude;
 	GLuint locationSpeed;
+	GLuint locationCameraPosition;
 };
 

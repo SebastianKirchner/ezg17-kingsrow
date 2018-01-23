@@ -22,6 +22,7 @@ void WaterShaderProgram::loadUniformLocations()
 	locationDudvMap = glGetUniformLocation(programId, "dudvMap");
 	locationAmplitude = glGetUniformLocation(programId, "amplitude");
 	locationSpeed = glGetUniformLocation(programId, "speed");
+	locationCameraPosition = glGetUniformLocation(programId, "cameraPos");
 }
 
 void WaterShaderProgram::fillUniformLocation(MeshNode* node, std::vector<LightNode*> lights, bool drawOcclusion)
@@ -56,6 +57,8 @@ void WaterShaderProgram::fillUniformLocation(MeshNode* node, glm::mat4 modelView
 	glUniformMatrix4fv(locationMVP, 1, GL_FALSE, &MVP[0][0]);
 	glUniform1f(locationAmplitude, water->getAmplitude());
 	glUniform1f(locationSpeed, water->getTimed());
+	glm::vec3 cameraPosition = water->getCameraPosition();
+	glUniform3f(locationCameraPosition, cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
 	
 }
