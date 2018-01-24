@@ -47,10 +47,10 @@ private:
 	Texture* normalMap;
 	glm::vec3 cameraPosition;
 	glm::vec3 lightPosition;
-	static const int REFL_WIDTH = 1280;
-	static const int REFL_HEIGHT = 720;
-	static const int REFR_WIDTH = 1280;
-	static const int REFR_HEIGHT = 720;
+	static const int REFL_WIDTH = 1024;
+	static const int REFL_HEIGHT = 768;
+	static const int REFR_WIDTH = 1024;
+	static const int REFR_HEIGHT = 768;
 
 	GLuint vertex_loc;							///< Vertex pointer needed for shader
 	GLuint texcoord_loc;						///< Texture coordinates pointer needed for shader

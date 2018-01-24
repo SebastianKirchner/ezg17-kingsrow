@@ -51,8 +51,8 @@ const std::vector<std::string> explode(const std::string& s, const char& c)
 int main() {
 
 	//Update the values also in LightNode, in case these values change
-	int viewPortResX = 640;
-	int viewPortResY = 480;
+	int viewPortResX = 1280;
+	int viewPortResY = 768;
 	Renderer* renderer = Renderer::getInstance();
 	if (renderer->init(viewPortResX, viewPortResY) == -1) {
 		return -1;
