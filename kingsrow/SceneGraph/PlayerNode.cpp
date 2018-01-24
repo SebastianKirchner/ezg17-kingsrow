@@ -1,5 +1,9 @@
 #include "PlayerNode.h"
 
+#include <fstream>
+#include <iostream>
+#include <string>
+
 #include "TransformNode.h"
 
 PlayerNode::PlayerNode(int uuid) : SceneNode(uuid, NodeType::PLAYER_NODE)
@@ -39,16 +43,19 @@ void PlayerNode::update(double deltaTime, InputHandler* input)
 	if (input->d)
 		position += right * (float)deltaTime * speed;
 
-	position.y = 0;
+	//position.y = 0;
 
 	//prevent camera from flipping
 	if (direction.y > 0.9 && (oldMousePosY - input->yPos) > 0 || direction.y < -0.9 && oldMousePosY - input->yPos < 0)
 	{
 		updateDirection(deltaTime, oldMousePosX - input->xPos, 0);
+		//std::cout << "flip prevention" << std::endl;
+
 	}
 	else
 	{
 		updateDirection(deltaTime, oldMousePosX - input->xPos, oldMousePosY - input->yPos);
+		//std::cout << "norm" << std::endl;
 	}
 
 	//updateDirection(horizontalAngle, verticalAngle);
@@ -94,7 +101,12 @@ glm::mat4 PlayerNode::getInvertedViewMatrix(float height)
 	float distance = 2.0f * (position.y - height);
 	glm::vec3 invertedPosition = position;
 	invertedPosition.y -= distance;
-
 	glm::vec3 invertedDirection = glm::reflect(direction, glm::vec3(0, 1, 0));
+	
+	std::cout << "position: " << position.y << std::endl;
+	std::cout << "invertedPosition: " << invertedPosition.y << std::endl;
+	std::cout << "direction: " << direction.x << ", " << direction.y << ", " << direction.z << std::endl;
+	std::cout << "invertedDirection: " << invertedDirection.x << ", " << invertedDirection.y << ", " << invertedDirection.z << std::endl;
+	std::cout << "distance: " << distance << std::endl;
 	return glm::lookAt(invertedPosition, invertedPosition + invertedDirection, up);
 }

@@ -19,7 +19,7 @@ void main()
 {
 	clipSpace = MVP * vec4(position.x, position.y, position.z, 1.0);
 	gl_Position = clipSpace;
-	texCoords = vec2(position.x/2.0 + 0.5, position.z/2.0 + 0.5) * 6;
+	texCoords = vec2(position.x/2.0 + 0.5, position.z/2.0 + 0.5) * 0.5;
 
 	P = (M * vec4(position, 1.0f)).xyz;
 } 

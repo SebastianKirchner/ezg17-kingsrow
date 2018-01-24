@@ -3,6 +3,7 @@
 #include "../SceneGraph/SceneNode.h"
 #include "../SceneGraph/CameraNode.h"
 
+
 class PlayerNode :
 	public SceneNode
 {

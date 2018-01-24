@@ -434,9 +434,10 @@ int main() {
 		while (deltaTime > timeStep)
 		{
 			deltaTime -= timeStep;
-			//sceneGraph->update(timeStep, input);
+			sceneGraph->update(timeStep, input);
+			
 			//myFile << input->w << " " << input->a << " " << input->s << " " << input->d << " " << input->xPos << " " << input->yPos << "\n";
-
+			/*
 			
 			if (std::getline(directionFile, currentDirectionInputLine)) {
 				//w a s d x y\n
@@ -470,10 +471,12 @@ int main() {
 					input->yPos = std::atoi(directionComp.at(5).c_str());
 				}
 				sceneGraph->update(timeStep, input);
+				
 			}
 			else {
 				input->esc = true;
 			}
+			*/
 		}
 		
 		oldTime = time - deltaTime;
@@ -496,13 +499,13 @@ int main() {
 		water->reflectionPass();
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
-			node->draw(invertedViewMatrix, projectionMatrix, invertedViewMatrix * projectionMatrix, player->getPosition(), glm::vec4(0, 1, 0, 0), false);
+			node->draw(invertedViewMatrix, projectionMatrix, projectionMatrix * invertedViewMatrix, playerPosition, glm::vec4(0, 1, 0, 0), false);
 		}
 
 		water->refractionPass();
 		for (MeshNode* node : drawArray) {
 			//-------------draw-------------------
-			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, player->getPosition(), glm::vec4(0, -1, 0, 0), false);
+			node->draw(viewMatrix, projectionMatrix, viewProjectionMatrix, playerPosition, glm::vec4(0, -1, 0, 0), false);
 		}
 		glDisable(GL_CLIP_DISTANCE0);
 
