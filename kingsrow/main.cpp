@@ -204,7 +204,7 @@ int main() {
 		2.1, 0, 0, 0,
 		0, 1.2, 0, 0,
 		0, 0, 1, 0,
-		18.5, 0, 0, 1));
+		18.5, 0.1, 0, 1));
 	SceneNode* transformNodeTree = new TransformNode(generateUuid(), glm::mat4(
 		0.4, 0, 0, 0,
 		0, 0.4, 0, 0,
@@ -390,7 +390,7 @@ int main() {
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
-		0, 0, 0, 1));
+		0, 2, 0, 1));
 
 	PlayerNode* player = new PlayerNode(generateUuid());
 	player->setCamera(activeCamera);
@@ -485,7 +485,7 @@ int main() {
 
 		projectionMatrix = activeCamera->getProjectionMatrix();
 		viewMatrix = activeCamera->getViewMatrix();
-		invertedViewMatrix = player->getInvertedViewMatrix(-1.0f);
+		invertedViewMatrix = player->getInvertedViewMatrix(0.0f);
 		viewProjectionMatrix = projectionMatrix * viewMatrix;
 		playerPosition = glm::vec3(glm::inverse(viewMatrix)[0][3], glm::inverse(viewMatrix)[1][3], glm::inverse(viewMatrix)[2][3]);
 

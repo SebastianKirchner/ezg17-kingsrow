@@ -20,16 +20,17 @@ uniform vec3 lightPos;
 void main()
 {
 
-	float slowspeed = speed / 4.0;
+	float slowspeed = speed / 15.0;
     vec3 lightDir = normalize(P - lightPos.xyz);
     vec3 viewDir = normalize(cameraPos.xyz - P);
 	
 	vec3 lightColor = vec3(1.0,1.0,1.0);
-	vec2 ndc = (clipSpace.xy/clipSpace.w)/2.0 + 0.5;
+	vec2 normCoords = clipSpace.xy/clipSpace.w;
+	vec2 ndc = normCoords/2.0 + 0.5;
 	vec2 refractTexCoords = vec2(ndc.x, ndc.y);
 	vec2 reflectTexCoords = vec2(ndc.x, -ndc.y);
 
-	vec2 dist = texture(dudvMap, vec2(texCoords.x + slowspeed, texCoords.y+slowspeed)).rg*0.001;
+	vec2 dist = texture(dudvMap, vec2(texCoords.x + slowspeed, texCoords.y)).rg*0.001;
 	dist = texCoords + vec2(dist.x, dist.y + slowspeed);
 	vec2 totalDist = (texture(dudvMap, dist).rg * 2.0 -1.0)*0.005;
 
@@ -57,6 +58,6 @@ void main()
 	vec3 highlights = lightColor * specular * 0.4;
 
     out_color = mix(reflectCol, refractCol, 0.6) + vec4(highlights, 0.0);
-	//out_color = mix(out_color, blue, 0.1);
+	out_color = mix(out_color, blue, 0.1);
 } 
 

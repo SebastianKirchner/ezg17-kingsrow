@@ -64,7 +64,7 @@ void PlayerNode::update(double deltaTime, InputHandler* input)
 
 	TransformNode* node;
 	glm::mat4 parentTransform;
-	glm::vec3 positionViewHack = glm::vec3(position.x, position.y + 2, position.z);	//bumps up the camera position by 1
+	glm::vec3 positionViewHack = glm::vec3(position.x, position.y, position.z);	//bumps up the camera position by 1
 	if (parent->getType() == NodeType::TRANSFORM_NODE)
 	{
 		node = (TransformNode*)parent;
@@ -102,11 +102,5 @@ glm::mat4 PlayerNode::getInvertedViewMatrix(float height)
 	glm::vec3 invertedPosition = position;
 	invertedPosition.y -= distance;
 	glm::vec3 invertedDirection = glm::reflect(direction, glm::vec3(0, 1, 0));
-	
-	std::cout << "position: " << position.y << std::endl;
-	std::cout << "invertedPosition: " << invertedPosition.y << std::endl;
-	std::cout << "direction: " << direction.x << ", " << direction.y << ", " << direction.z << std::endl;
-	std::cout << "invertedDirection: " << invertedDirection.x << ", " << invertedDirection.y << ", " << invertedDirection.z << std::endl;
-	std::cout << "distance: " << distance << std::endl;
-	return glm::lookAt(invertedPosition, invertedPosition + invertedDirection, up);
+	return glm::lookAt(invertedPosition, invertedPosition + invertedDirection, glm::vec3(0, 1, 0));
 }
